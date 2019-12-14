@@ -70,5 +70,5 @@ The ROC AUC curve is given below
 # Model Explanation using lime
 For the model explanation we can use lime module. For example for one sample here the model predicts the comment to
 be non-toxic. Why the model thinks this particular row is classified as non-toxic? We can look the image below:
-![](lime_example.png)
+![](images/lime_example.png)
 
