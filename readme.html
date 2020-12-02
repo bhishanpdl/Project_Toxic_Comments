@@ -1,0 +1,85 @@
+<h1 id="table-of-contents">Table of Contents</h1>
+<ul>
+<li><a href="#business-problem">Business Problem</a></li>
+<li><a href="#notebooks">Notebooks</a></li>
+<li><a href="#text-data-processing">Text Data Processing</a></li>
+<li><a href="#visualization">Visualization</a></li>
+<li><a href="#modelling">Modelling</a></li>
+<li><a href="#model-evaluation">Model Evaluation</a></li>
+<li><a href="#model-explanation-using-lime">Model Explanation using lime</a></li>
+</ul>
+<h1 id="business-problem">Business Problem</h1>
+<p>We are given large number of Wikipedia comments which have been labeled by human raters for toxic behavior. The types of toxicity are: <code>toxic</code>, <code>severe_toxic</code>, <code>obscene</code>, <code>threat</code>, <code>insult</code>, <code>identity_hate</code>. We should create a model which predicts a probability of each type of toxicity for each comment.</p>
+<h1 id="notebooks">Notebooks</h1>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Notebook</th>
+<th>Rendered</th>
+<th>Description</th>
+<th>Author</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>a01_text_data_processing.ipynb</td>
+<td><a href="https://github.com/bhishanpdl/Project_Toxic_Comments/blob/master/notebooks/a01_text_data_processing.ipynb">ipynb</a>, <a href="https://nbviewer.jupyter.org/github/bhishanpdl/Project_Toxic_Comments/blob/master/notebooks/a01_text_data_processing.ipynb">rendered</a></td>
+<td>Creating new text features</td>
+<td><a href="https://bhishanpdl.github.io/">Bhishan Poudel</a></td>
+</tr>
+<tr class="even">
+<td>a02_text_data_eda_and_visualization.ipynb</td>
+<td><a href="https://github.com/bhishanpdl/Project_Toxic_Comments/blob/master/notebooks/a02_text_data_eda_and_visualization.ipynb">ipynb</a>, <a href="https://nbviewer.jupyter.org/github/bhishanpdl/Project_Toxic_Comments/blob/master/notebooks/a02_text_data_eda_and_visualization.ipynb">rendered</a></td>
+<td>Class distribution, word cloud, etc</td>
+<td><a href="https://bhishanpdl.github.io/">Bhishan Poudel</a></td>
+</tr>
+<tr class="odd">
+<td>a03_text_data_modelling_logistic_regression.ipynb</td>
+<td><a href="https://github.com/bhishanpdl/Project_Toxic_Comments/blob/master/notebooks/a03_text_data_modelling_logistic_regression.ipynb">ipynb</a>, <a href="https://nbviewer.jupyter.org/github/bhishanpdl/Project_Toxic_Comments/blob/master/notebooks/a03_text_data_modelling_logistic_regression.ipynb">rendered</a></td>
+<td>Losgistic Regression</td>
+<td><a href="https://bhishanpdl.github.io/">Bhishan Poudel</a></td>
+</tr>
+<tr class="even">
+<td>a04_text_data_modelling_spacy.ipynb</td>
+<td><a href="https://github.com/bhishanpdl/Project_Toxic_Comments/blob/master/notebooks/a04_text_data_modelling_spacy.ipynb">ipynb</a>, <a href="https://nbviewer.jupyter.org/github/bhishanpdl/Project_Toxic_Comments/blob/master/notebooks/a04_text_data_modelling_spacy.ipynb">rendered</a></td>
+<td>Topic Modelling using Spacy</td>
+<td><a href="https://bhishanpdl.github.io/">Bhishan Poudel</a></td>
+</tr>
+</tbody>
+</table>
+<h1 id="text-data-processing">Text Data Processing</h1>
+<p>For the text data series we can create some features based on the given text. Some feature engineerings are:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Number: letters, capitals, punctuations, symbols, words, sentences, unique words, smileys, qn marks, excl marks</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Mean: capitals, word legth</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Ratio: num of words <span class="op">/</span> num of unique</span></code></pre></div>
+<p>Basic steps of text processing:</p>
+<pre><code>Remove: digits, punctuations
+Conversion: lowercase
+Split: split sentences into words
+Stopwords: remove stopwords
+Lemmatize: convert word to its base form
+</code></pre>
+<h1 id="visualization">Visualization</h1>
+<p>After doing the preprocessing of the data, we can get more insights into data using some visualization. <img src="images/class_distribution.png" /> <img src="images/insult_freq_dist.png" /> <img src="images/toxic_wordcloud.png" /> <img src="images/toxic_tf_idf.png" /></p>
+<h1 id="modelling">Modelling</h1>
+<p>For the text classification I used Logistic Regression with following pipelines:</p>
+<pre><code>preprocess the data and add features
+lemmatization
+tf-idf for words
+tf-idf for characters
+then, logistic regression with grid search parameters</code></pre>
+<p>After searching for hyper parameters I got following results:</p>
+<pre><code>Accuracy:  0.9516096780643871
+Precision:  0.9154411764705882
+Recall:  0.532051282051282
+F1-score:  0.672972972972973</code></pre>
+<h1 id="model-evaluation">Model Evaluation</h1>
+<p>The ROC AUC curve is given below <img src="images/roc_auc.png" /></p>
+<h1 id="model-explanation-using-lime">Model Explanation using lime</h1>
+<p>For the model explanation we can use lime module. For example for one sample here the model predicts the comment to be non-toxic. Why the model thinks this particular row is classified as non-toxic? We can look the image below: <img src="images/lime_example.png" /></p>
