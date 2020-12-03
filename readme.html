@@ -1,58 +1,18 @@
 <h1 id="table-of-contents">Table of Contents</h1>
 <ul>
 <li><a href="#business-problem">Business Problem</a></li>
-<li><a href="#notebooks">Notebooks</a></li>
 <li><a href="#text-data-processing">Text Data Processing</a></li>
 <li><a href="#visualization">Visualization</a></li>
-<li><a href="#modelling">Modelling</a></li>
-<li><a href="#model-evaluation">Model Evaluation</a></li>
-<li><a href="#model-explanation-using-lime">Model Explanation using lime</a></li>
+<li><a href="#modelling-binary-classification-toxic-or-not">Modelling (Binary Classification toxic or not)</a></li>
+<li><a href="#model-evaluation-for-binary-classification">Model Evaluation for Binary Classification</a></li>
+<li><a href="#model-explanation-using-lime-for-binary-classification">Model Explanation using lime for Binary Classification</a></li>
+<li><a href="#deep-learning-modelling-multilabel-classification-keras--fasttext">Deep Learning Modelling (Multilabel Classification): Keras Fasttext</a></li>
+<li><a href="#deep-learning-modelling-multilabel-classification-bert">Deep Learning Modelling (Multilabel Classification): BERT</a></li>
+<li><a href="#deep-learning-modelling-multilabel-classification-xlnet">Deep Learning Modelling (Multilabel Classification): XLNET</a></li>
+<li><a href="#compare-f1-scores-for-deep-learning-methods">Compare f1-scores for deep learning methods</a></li>
 </ul>
 <h1 id="business-problem">Business Problem</h1>
 <p>We are given large number of Wikipedia comments which have been labeled by human raters for toxic behavior. The types of toxicity are: <code>toxic</code>, <code>severe_toxic</code>, <code>obscene</code>, <code>threat</code>, <code>insult</code>, <code>identity_hate</code>. We should create a model which predicts a probability of each type of toxicity for each comment.</p>
-<h1 id="notebooks">Notebooks</h1>
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Notebook</th>
-<th>Rendered</th>
-<th>Description</th>
-<th>Author</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>a01_text_data_processing.ipynb</td>
-<td><a href="https://github.com/bhishanpdl/Project_Toxic_Comments/blob/master/notebooks/a01_text_data_processing.ipynb">ipynb</a>, <a href="https://nbviewer.jupyter.org/github/bhishanpdl/Project_Toxic_Comments/blob/master/notebooks/a01_text_data_processing.ipynb">rendered</a></td>
-<td>Creating new text features</td>
-<td><a href="https://bhishanpdl.github.io/">Bhishan Poudel</a></td>
-</tr>
-<tr class="even">
-<td>a02_text_data_eda_and_visualization.ipynb</td>
-<td><a href="https://github.com/bhishanpdl/Project_Toxic_Comments/blob/master/notebooks/a02_text_data_eda_and_visualization.ipynb">ipynb</a>, <a href="https://nbviewer.jupyter.org/github/bhishanpdl/Project_Toxic_Comments/blob/master/notebooks/a02_text_data_eda_and_visualization.ipynb">rendered</a></td>
-<td>Class distribution, word cloud, etc</td>
-<td><a href="https://bhishanpdl.github.io/">Bhishan Poudel</a></td>
-</tr>
-<tr class="odd">
-<td>a03_text_data_modelling_logistic_regression.ipynb</td>
-<td><a href="https://github.com/bhishanpdl/Project_Toxic_Comments/blob/master/notebooks/a03_text_data_modelling_logistic_regression.ipynb">ipynb</a>, <a href="https://nbviewer.jupyter.org/github/bhishanpdl/Project_Toxic_Comments/blob/master/notebooks/a03_text_data_modelling_logistic_regression.ipynb">rendered</a></td>
-<td>Losgistic Regression</td>
-<td><a href="https://bhishanpdl.github.io/">Bhishan Poudel</a></td>
-</tr>
-<tr class="even">
-<td>a04_text_data_modelling_spacy.ipynb</td>
-<td><a href="https://github.com/bhishanpdl/Project_Toxic_Comments/blob/master/notebooks/a04_text_data_modelling_spacy.ipynb">ipynb</a>, <a href="https://nbviewer.jupyter.org/github/bhishanpdl/Project_Toxic_Comments/blob/master/notebooks/a04_text_data_modelling_spacy.ipynb">rendered</a></td>
-<td>Topic Modelling using Spacy</td>
-<td><a href="https://bhishanpdl.github.io/">Bhishan Poudel</a></td>
-</tr>
-</tbody>
-</table>
 <h1 id="text-data-processing">Text Data Processing</h1>
 <p>For the text data series we can create some features based on the given text. Some feature engineerings are:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Number: letters, capitals, punctuations, symbols, words, sentences, unique words, smileys, qn marks, excl marks</span>
@@ -63,11 +23,10 @@
 Conversion: lowercase
 Split: split sentences into words
 Stopwords: remove stopwords
-Lemmatize: convert word to its base form
-</code></pre>
+Lemmatize: convert word to its base form</code></pre>
 <h1 id="visualization">Visualization</h1>
 <p>After doing the preprocessing of the data, we can get more insights into data using some visualization. <img src="images/class_distribution.png" /> <img src="images/insult_freq_dist.png" /> <img src="images/toxic_wordcloud.png" /> <img src="images/toxic_tf_idf.png" /></p>
-<h1 id="modelling">Modelling</h1>
+<h1 id="modelling-binary-classification-toxic-or-not">Modelling (Binary Classification toxic or not)</h1>
 <p>For the text classification I used Logistic Regression with following pipelines:</p>
 <pre><code>preprocess the data and add features
 lemmatization
@@ -75,11 +34,137 @@ tf-idf for words
 tf-idf for characters
 then, logistic regression with grid search parameters</code></pre>
 <p>After searching for hyper parameters I got following results:</p>
-<pre><code>Accuracy:  0.9516096780643871
+<pre><code>Accuracy :  0.9516096780643871
 Precision:  0.9154411764705882
-Recall:  0.532051282051282
-F1-score:  0.672972972972973</code></pre>
-<h1 id="model-evaluation">Model Evaluation</h1>
+Recall   :  0.532051282051282
+F1-score :  0.672972972972973</code></pre>
+<h1 id="model-evaluation-for-binary-classification">Model Evaluation for Binary Classification</h1>
 <p>The ROC AUC curve is given below <img src="images/roc_auc.png" /></p>
-<h1 id="model-explanation-using-lime">Model Explanation using lime</h1>
+<h1 id="model-explanation-using-lime-for-binary-classification">Model Explanation using lime for Binary Classification</h1>
 <p>For the model explanation we can use lime module. For example for one sample here the model predicts the comment to be non-toxic. Why the model thinks this particular row is classified as non-toxic? We can look the image below: <img src="images/lime_example.png" /></p>
+<h1 id="deep-learning-modelling-multilabel-classification-keras-fasttext">Deep Learning Modelling (Multilabel Classification): Keras + Fasttext</h1>
+<p>Horizontal quantities are true labels and vertical quantities are predicted labels. For example first row second quantitiy is true “toxic” but predicted as “severe_toxic”. <img src="images/toxic_coo_fasttext.png" /></p>
+<pre><code>              precision    recall  f1-score   support
+
+           0       0.11      0.98      0.19      3092
+           1       0.00      0.00      0.00       313
+           2       0.02      0.03      0.02      1667
+           3       0.12      0.01      0.02        99
+           4       0.00      0.00      0.00      1585
+           5       0.00      0.00      0.00       269
+
+   micro avg       0.10      0.44      0.16      7025
+   macro avg       0.04      0.17      0.04      7025
+weighted avg       0.05      0.44      0.09      7025
+ samples avg       0.10      0.06      0.07      7025</code></pre>
+<h1 id="deep-learning-modelling-multilabel-classification-bert">Deep Learning Modelling (Multilabel Classification): BERT</h1>
+<p><img src="images/toxic_coo_bert.png" /></p>
+<pre><code>Best Threshold     : 0.41000000000000003
+Test F1 Accuracy   : 0.7806
+Test Flat Accuracy : 0.9234
+               precision    recall  f1-score   support
+
+        toxic       0.84      0.80      0.82      3092
+ severe_toxic       0.48      0.56      0.52       313
+      obscene       0.80      0.86      0.83      1667
+       threat       0.50      0.56      0.52        99
+       insult       0.71      0.83      0.77      1585
+identity_hate       0.60      0.46      0.52       269
+
+    micro avg       0.77      0.79      0.78      7025
+    macro avg       0.66      0.68      0.66      7025
+ weighted avg       0.77      0.79      0.78      7025
+  samples avg       0.07      0.07      0.07      7025</code></pre>
+<h1 id="deep-learning-modelling-multilabel-classification-xlnet">Deep Learning Modelling (Multilabel Classification): XLNET</h1>
+<p><img src="images/toxic_coo_xlnet.png" /></p>
+<pre><code>I have used 3 epochs for both bert and xlnet. However bert gives better f1-score despite xlnet takes 3 hours to run and bert takes 1 hour in google colab gpu instance.
+
+Best Threshold     : 0.51
+Test F1 Accuracy   : 0.7670
+Test Flat Accuracy : 0.9185
+               precision    recall  f1-score   support
+
+        toxic       0.78      0.84      0.81      3092
+ severe_toxic       0.61      0.08      0.14       313
+      obscene       0.77      0.86      0.82      1667
+       threat       0.64      0.39      0.49        99
+       insult       0.76      0.73      0.74      1585
+identity_hate       0.64      0.51      0.56       269
+
+    micro avg       0.77      0.77      0.77      7025
+    macro avg       0.70      0.57      0.59      7025
+ weighted avg       0.76      0.77      0.75      7025
+  samples avg       0.07      0.07      0.07      7025</code></pre>
+<h1 id="compare-f1-scores-for-deep-learning-methods">Compare f1-scores for deep learning methods</h1>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Quantity</th>
+<th style="text-align: left;">Fasttext</th>
+<th style="text-align: left;">BERT</th>
+<th style="text-align: left;">XLNET</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">toxic</td>
+<td style="text-align: left;">0.19</td>
+<td style="text-align: left;">0.82</td>
+<td style="text-align: left;">0.81</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">severe_toxic</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">0.52</td>
+<td style="text-align: left;">0.14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">obscene</td>
+<td style="text-align: left;">0.02</td>
+<td style="text-align: left;">0.83</td>
+<td style="text-align: left;">0.82</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">threat</td>
+<td style="text-align: left;">0.02</td>
+<td style="text-align: left;">0.52</td>
+<td style="text-align: left;">0.49</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">insult</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">0.77</td>
+<td style="text-align: left;">0.74</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">identity_hate</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">0.52</td>
+<td style="text-align: left;">0.56</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">micro_avg</td>
+<td style="text-align: left;">0.16</td>
+<td style="text-align: left;">0.78</td>
+<td style="text-align: left;">0.77</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">macro_avg</td>
+<td style="text-align: left;">0.04</td>
+<td style="text-align: left;">0.66</td>
+<td style="text-align: left;">0.59</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">weighted_avg</td>
+<td style="text-align: left;">0.09</td>
+<td style="text-align: left;">0.78</td>
+<td style="text-align: left;">0.75</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">samples_avg</td>
+<td style="text-align: left;">0.07</td>
+<td style="text-align: left;">0.07</td>
+<td style="text-align: left;">0.07</td>
+</tr>
+</tbody>
+</table>
