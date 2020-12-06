@@ -3,30 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>y02c_toxic_dl_distilbertfast_pytorch</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script><script>
-(function() {
-  function addWidgetsRenderer() {
-    var mimeElement = document.querySelector('script[type="application/vnd.jupyter.widget-view+json"]');
-    var scriptElement = document.createElement('script');
-    var widgetRendererSrc = 'https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js';
-    var widgetState;
-
-    // Fallback for older version:
-    try {
-      widgetState = mimeElement && JSON.parse(mimeElement.innerHTML);
-
-      if (widgetState && (widgetState.version_major < 2 || !widgetState.version_major)) {
-        widgetRendererSrc = 'https://unpkg.com/jupyter-js-widgets@*/dist/embed.js';
-      }
-    } catch(e) {}
-
-    scriptElement.src = widgetRendererSrc;
-    document.body.appendChild(scriptElement);
-  }
-
-  document.addEventListener('DOMContentLoaded', addWidgetsRenderer);
-}());
-</script>
+<title>y02c_toxic_dl_distilbertfast_pytorch</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -14362,6 +14339,7 @@ xlnet:      padding + tokens + [SEP] + [CLS]</code></pre>
 
 <span class="k">if</span> <span class="n">ENV_COLAB</span><span class="p">:</span>
     <span class="c1">## install modules</span>
+    <span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">sentencepiece</span> <span class="c1"># xlnet needs this</span>
     <span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">transformers</span>
     <span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">scikit</span><span class="o">-</span><span class="n">plot</span>
     <span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">watermark</span>
@@ -14450,7 +14428,7 @@ xlnet:      padding + tokens + [SEP] + [CLS]</code></pre>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Bhishan Poudel 2020-12-05 
+<pre>Bhishan Poudel 2020-12-06 
 
 CPython 3.6.9
 IPython 5.5.0
@@ -14460,21 +14438,21 @@ system     : Linux
 release    : 4.19.112+
 machine    : x86_64
 processor  : x86_64
-CPU cores  : 2
+CPU cores  : 4
 interpreter: 64bit
 
-tensorflow              2.3.0
-watermark               2.0.2
-joblib                  0.17.0
-transformers.file_utils 4.0.0
-seaborn                 0.11.0
-scikitplot              0.3.7
-sklearn                 0.22.2.post1
-matplotlib              3.2.2
-numpy                   1.18.5
-pandas                  1.1.4
 torch                   1.7.0+cu101
+numpy                   1.18.5
 transformers            4.0.0
+seaborn                 0.11.0
+matplotlib              3.2.2
+sklearn                 0.22.2.post1
+scikitplot              0.3.7
+watermark               2.0.2
+tensorflow              2.3.0
+joblib                  0.17.0
+pandas                  1.1.4
+transformers.file_utils 4.0.0
 
 </pre>
 </div>
@@ -14511,17 +14489,18 @@ transformers            4.0.0
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[57]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">seed_all</span><span class="p">(</span><span class="n">seed_value</span><span class="p">):</span>
-    <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed_value</span><span class="p">)</span> <span class="c1"># Python</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed_value</span><span class="p">)</span> <span class="c1"># cpu vars</span>
-    <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">seed_value</span><span class="p">)</span> <span class="c1"># cpu  vars</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">seed_all</span><span class="p">(</span><span class="n">seed</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">random</span>
+    <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span> <span class="c1"># Python</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span> <span class="c1"># cpu vars</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span> <span class="c1"># cpu  vars</span>
     
     <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span> 
-        <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">seed_value</span><span class="p">)</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">manual_seed_all</span><span class="p">(</span><span class="n">seed_value</span><span class="p">)</span> <span class="c1"># gpu vars</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">manual_seed_all</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span> <span class="c1"># gpu vars</span>
         <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">deterministic</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1">#needed</span>
         <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">benchmark</span> <span class="o">=</span> <span class="kc">False</span>
 </pre></div>
@@ -14531,44 +14510,18 @@ transformers            4.0.0
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[58]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">seed_all</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">seed_all</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">SEED</span><span class="p">)</span>
 </pre></div>
 
      </div>
 </div>
 </div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-58-bdee9c1ffa61&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>seed_all<span class="ansi-blue-fg">(</span>seed<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-red-fg">NameError</span>: name &#39;seed&#39; is not defined</pre>
-</div>
-</div>
-
-</div>
-
 </div>
 
 </div>
@@ -14579,7 +14532,7 @@ transformers            4.0.0
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># We must use gpu for this notebook, it is needed later</span>
@@ -14618,77 +14571,12 @@ transformers            4.0.0
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
 <span class="n">n_gpu</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_count</span><span class="p">()</span>
 <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">get_device_name</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
-
-
-
-
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>&#39;Tesla T4&#39;</pre>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Load-Training-Data">Load Training Data<a class="anchor-link" href="#Load-Training-Data">&#182;</a></h2>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%capture</span>
-
-<span class="c1"># Once you downloaded the data, comment this cell</span>
-<span class="n">download_data</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="k">if</span> <span class="n">download_data</span><span class="p">:</span>
-    <span class="err">!</span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">bhishanpdl</span><span class="o">/</span><span class="n">Datasets</span><span class="o">/</span><span class="n">blob</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">Projects</span><span class="o">/</span><span class="n">Jigsaw_Toxic_Comment_Classification</span><span class="o">/</span><span class="n">train</span><span class="o">.</span><span class="n">csv</span><span class="o">.</span><span class="n">zip</span><span class="err">?</span><span class="n">raw</span><span class="o">=</span><span class="n">true</span>
-    <span class="err">!</span><span class="n">unzip</span> <span class="n">train</span><span class="o">.</span><span class="n">csv</span><span class="o">.</span><span class="n">zip</span><span class="err">?</span><span class="n">raw</span><span class="o">=</span><span class="n">true</span>
-
-    <span class="err">!</span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">bhishanpdl</span><span class="o">/</span><span class="n">Datasets</span><span class="o">/</span><span class="n">blob</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">Projects</span><span class="o">/</span><span class="n">Jigsaw_Toxic_Comment_Classification</span><span class="o">/</span><span class="n">test</span><span class="o">.</span><span class="n">csv</span><span class="o">.</span><span class="n">zip</span><span class="err">?</span><span class="n">raw</span><span class="o">=</span><span class="n">true</span>
-    <span class="err">!</span><span class="n">unzip</span> <span class="n">test</span><span class="o">.</span><span class="n">csv</span><span class="o">.</span><span class="n">zip</span><span class="err">?</span><span class="n">raw</span><span class="o">=</span><span class="n">true</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">()</span>
 </pre></div>
 
      </div>
@@ -14710,10 +14598,77 @@ transformers            4.0.0
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>&#39;Tesla P100-PCIE-16GB&#39;</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Load-Training-Data">Load Training Data<a class="anchor-link" href="#Load-Training-Data">&#182;</a></h2>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %%capture</span>
+
+<span class="c1"># # Once you downloaded the data, comment this cell</span>
+<span class="c1"># download_data = True</span>
+<span class="c1"># if download_data:</span>
+<span class="c1">#     !wget https://github.com/bhishanpdl/Datasets/blob/master/Projects/Jigsaw_Toxic_Comment_Classification/train.csv.zip?raw=true</span>
+<span class="c1">#     !unzip train.csv.zip?raw=true</span>
+
+<span class="c1">#     !wget https://github.com/bhishanpdl/Datasets/blob/master/Projects/Jigsaw_Toxic_Comment_Classification/test.csv.zip?raw=true</span>
+<span class="c1">#     !unzip test.csv.zip?raw=true</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
 <pre>[&#39;.config&#39;,
  &#39;train.csv&#39;,
  &#39;test.csv.zip?raw=true&#39;,
+ &#39;train.csv.zip?raw=true.1&#39;,
  &#39;test.csv&#39;,
+ &#39;test.csv.zip?raw=true.1&#39;,
  &#39;train.csv.zip?raw=true&#39;,
  &#39;sample_data&#39;]</pre>
 </div>
@@ -14727,7 +14682,7 @@ transformers            4.0.0
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;train.csv&#39;</span><span class="p">)</span>
@@ -14747,7 +14702,7 @@ transformers            4.0.0
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[9]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[11]:</div>
 
 
 
@@ -14847,28 +14802,21 @@ transformers            4.0.0
 
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">col_text</span> <span class="o">=</span> <span class="s1">&#39;comment_text&#39;</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># unique text</span>
-<span class="n">df_train</span><span class="p">[</span><span class="n">col_text</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">(),</span> <span class="n">df_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">col_text</span> <span class="o">=</span> <span class="s1">&#39;comment_text&#39;</span>
+
+<span class="c1"># unique text</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;unique text&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_train</span><span class="p">[</span><span class="n">col_text</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">(),</span> <span class="n">df_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1"># null values</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;nan text&#39;</span><span class="p">)</span>
+<span class="n">df_train</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 </pre></div>
 
      </div>
@@ -14884,40 +14832,16 @@ transformers            4.0.0
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[11]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
-
-
-<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>(127656, 127656)</pre>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># null values</span>
-<span class="n">df_train</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-</pre></div>
-
-     </div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>unique text
+127656 127656
+nan text
+</pre>
 </div>
 </div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
 
 <div class="jp-OutputArea-child">
 
@@ -15224,18 +15148,69 @@ dtype: int64
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h1 id="Choose-Transformers-Model">Choose Transformers Model<a class="anchor-link" href="#Choose-Transformers-Model">&#182;</a></h1>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># list_text[0]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_name</span> <span class="o">=</span> <span class="s1">&#39;distilbertfast&#39;</span>
+<span class="n">num_labels</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols_label</span><span class="p">)</span> <span class="c1"># NUM_CLASSES</span>
+
+<span class="c1">#=======================================================</span>
+<span class="n">vocab_file</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">if</span> <span class="n">model_name</span> <span class="o">==</span> <span class="s1">&#39;bert&#39;</span><span class="p">:</span>
+    <span class="n">vocab_file</span> <span class="o">=</span> <span class="s1">&#39;bert-base-uncased&#39;</span>
+    <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">transformers</span><span class="o">.</span><span class="n">BertTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+        <span class="n">vocab_file</span><span class="p">,</span><span class="n">do_lower_case</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">transformers</span><span class="o">.</span><span class="n">BertForSequenceClassification</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+        <span class="n">vocab_file</span><span class="p">,</span> <span class="n">num_labels</span><span class="o">=</span><span class="n">num_labels</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">model_name</span> <span class="o">==</span> <span class="s1">&#39;distilbertfast&#39;</span><span class="p">:</span>
+    <span class="n">vocab_file</span> <span class="o">=</span> <span class="s1">&#39;distilbert-base-uncased&#39;</span>
+    <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">transformers</span><span class="o">.</span><span class="n">DistilBertTokenizerFast</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+        <span class="n">vocab_file</span><span class="p">,</span><span class="n">do_lower_case</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">transformers</span><span class="o">.</span><span class="n">BertForSequenceClassification</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+        <span class="n">vocab_file</span><span class="p">,</span> <span class="n">num_labels</span><span class="o">=</span><span class="n">num_labels</span><span class="p">)</span>
 </pre></div>
 
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>Some weights of the model checkpoint at distilbert-base-uncased were not used when initializing BertForSequenceClassification: [&#39;distilbert.embeddings.word_embeddings.weight&#39;, &#39;distilbert.embeddings.position_embeddings.weight&#39;, &#39;distilbert.embeddings.LayerNorm.weight&#39;, &#39;distilbert.embeddings.LayerNorm.bias&#39;, &#39;distilbert.transformer.layer.0.attention.q_lin.weight&#39;, &#39;distilbert.transformer.layer.0.attention.q_lin.bias&#39;, &#39;distilbert.transformer.layer.0.attention.k_lin.weight&#39;, &#39;distilbert.transformer.layer.0.attention.k_lin.bias&#39;, &#39;distilbert.transformer.layer.0.attention.v_lin.weight&#39;, &#39;distilbert.transformer.layer.0.attention.v_lin.bias&#39;, &#39;distilbert.transformer.layer.0.attention.out_lin.weight&#39;, &#39;distilbert.transformer.layer.0.attention.out_lin.bias&#39;, &#39;distilbert.transformer.layer.0.sa_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.0.sa_layer_norm.bias&#39;, &#39;distilbert.transformer.layer.0.ffn.lin1.weight&#39;, &#39;distilbert.transformer.layer.0.ffn.lin1.bias&#39;, &#39;distilbert.transformer.layer.0.ffn.lin2.weight&#39;, &#39;distilbert.transformer.layer.0.ffn.lin2.bias&#39;, &#39;distilbert.transformer.layer.0.output_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.0.output_layer_norm.bias&#39;, &#39;distilbert.transformer.layer.1.attention.q_lin.weight&#39;, &#39;distilbert.transformer.layer.1.attention.q_lin.bias&#39;, &#39;distilbert.transformer.layer.1.attention.k_lin.weight&#39;, &#39;distilbert.transformer.layer.1.attention.k_lin.bias&#39;, &#39;distilbert.transformer.layer.1.attention.v_lin.weight&#39;, &#39;distilbert.transformer.layer.1.attention.v_lin.bias&#39;, &#39;distilbert.transformer.layer.1.attention.out_lin.weight&#39;, &#39;distilbert.transformer.layer.1.attention.out_lin.bias&#39;, &#39;distilbert.transformer.layer.1.sa_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.1.sa_layer_norm.bias&#39;, &#39;distilbert.transformer.layer.1.ffn.lin1.weight&#39;, &#39;distilbert.transformer.layer.1.ffn.lin1.bias&#39;, &#39;distilbert.transformer.layer.1.ffn.lin2.weight&#39;, &#39;distilbert.transformer.layer.1.ffn.lin2.bias&#39;, &#39;distilbert.transformer.layer.1.output_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.1.output_layer_norm.bias&#39;, &#39;distilbert.transformer.layer.2.attention.q_lin.weight&#39;, &#39;distilbert.transformer.layer.2.attention.q_lin.bias&#39;, &#39;distilbert.transformer.layer.2.attention.k_lin.weight&#39;, &#39;distilbert.transformer.layer.2.attention.k_lin.bias&#39;, &#39;distilbert.transformer.layer.2.attention.v_lin.weight&#39;, &#39;distilbert.transformer.layer.2.attention.v_lin.bias&#39;, &#39;distilbert.transformer.layer.2.attention.out_lin.weight&#39;, &#39;distilbert.transformer.layer.2.attention.out_lin.bias&#39;, &#39;distilbert.transformer.layer.2.sa_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.2.sa_layer_norm.bias&#39;, &#39;distilbert.transformer.layer.2.ffn.lin1.weight&#39;, &#39;distilbert.transformer.layer.2.ffn.lin1.bias&#39;, &#39;distilbert.transformer.layer.2.ffn.lin2.weight&#39;, &#39;distilbert.transformer.layer.2.ffn.lin2.bias&#39;, &#39;distilbert.transformer.layer.2.output_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.2.output_layer_norm.bias&#39;, &#39;distilbert.transformer.layer.3.attention.q_lin.weight&#39;, &#39;distilbert.transformer.layer.3.attention.q_lin.bias&#39;, &#39;distilbert.transformer.layer.3.attention.k_lin.weight&#39;, &#39;distilbert.transformer.layer.3.attention.k_lin.bias&#39;, &#39;distilbert.transformer.layer.3.attention.v_lin.weight&#39;, &#39;distilbert.transformer.layer.3.attention.v_lin.bias&#39;, &#39;distilbert.transformer.layer.3.attention.out_lin.weight&#39;, &#39;distilbert.transformer.layer.3.attention.out_lin.bias&#39;, &#39;distilbert.transformer.layer.3.sa_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.3.sa_layer_norm.bias&#39;, &#39;distilbert.transformer.layer.3.ffn.lin1.weight&#39;, &#39;distilbert.transformer.layer.3.ffn.lin1.bias&#39;, &#39;distilbert.transformer.layer.3.ffn.lin2.weight&#39;, &#39;distilbert.transformer.layer.3.ffn.lin2.bias&#39;, &#39;distilbert.transformer.layer.3.output_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.3.output_layer_norm.bias&#39;, &#39;distilbert.transformer.layer.4.attention.q_lin.weight&#39;, &#39;distilbert.transformer.layer.4.attention.q_lin.bias&#39;, &#39;distilbert.transformer.layer.4.attention.k_lin.weight&#39;, &#39;distilbert.transformer.layer.4.attention.k_lin.bias&#39;, &#39;distilbert.transformer.layer.4.attention.v_lin.weight&#39;, &#39;distilbert.transformer.layer.4.attention.v_lin.bias&#39;, &#39;distilbert.transformer.layer.4.attention.out_lin.weight&#39;, &#39;distilbert.transformer.layer.4.attention.out_lin.bias&#39;, &#39;distilbert.transformer.layer.4.sa_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.4.sa_layer_norm.bias&#39;, &#39;distilbert.transformer.layer.4.ffn.lin1.weight&#39;, &#39;distilbert.transformer.layer.4.ffn.lin1.bias&#39;, &#39;distilbert.transformer.layer.4.ffn.lin2.weight&#39;, &#39;distilbert.transformer.layer.4.ffn.lin2.bias&#39;, &#39;distilbert.transformer.layer.4.output_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.4.output_layer_norm.bias&#39;, &#39;distilbert.transformer.layer.5.attention.q_lin.weight&#39;, &#39;distilbert.transformer.layer.5.attention.q_lin.bias&#39;, &#39;distilbert.transformer.layer.5.attention.k_lin.weight&#39;, &#39;distilbert.transformer.layer.5.attention.k_lin.bias&#39;, &#39;distilbert.transformer.layer.5.attention.v_lin.weight&#39;, &#39;distilbert.transformer.layer.5.attention.v_lin.bias&#39;, &#39;distilbert.transformer.layer.5.attention.out_lin.weight&#39;, &#39;distilbert.transformer.layer.5.attention.out_lin.bias&#39;, &#39;distilbert.transformer.layer.5.sa_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.5.sa_layer_norm.bias&#39;, &#39;distilbert.transformer.layer.5.ffn.lin1.weight&#39;, &#39;distilbert.transformer.layer.5.ffn.lin1.bias&#39;, &#39;distilbert.transformer.layer.5.ffn.lin2.weight&#39;, &#39;distilbert.transformer.layer.5.ffn.lin2.bias&#39;, &#39;distilbert.transformer.layer.5.output_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.5.output_layer_norm.bias&#39;, &#39;vocab_transform.weight&#39;, &#39;vocab_transform.bias&#39;, &#39;vocab_layer_norm.weight&#39;, &#39;vocab_layer_norm.bias&#39;, &#39;vocab_projector.weight&#39;, &#39;vocab_projector.bias&#39;]
+- This IS expected if you are initializing BertForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing BertForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of BertForSequenceClassification were not initialized from the model checkpoint at distilbert-base-uncased and are newly initialized: [&#39;embeddings.word_embeddings.weight&#39;, &#39;embeddings.position_embeddings.weight&#39;, &#39;embeddings.token_type_embeddings.weight&#39;, &#39;embeddings.LayerNorm.weight&#39;, &#39;embeddings.LayerNorm.bias&#39;, &#39;encoder.layer.0.attention.self.query.weight&#39;, &#39;encoder.layer.0.attention.self.query.bias&#39;, &#39;encoder.layer.0.attention.self.key.weight&#39;, &#39;encoder.layer.0.attention.self.key.bias&#39;, &#39;encoder.layer.0.attention.self.value.weight&#39;, &#39;encoder.layer.0.attention.self.value.bias&#39;, &#39;encoder.layer.0.attention.output.dense.weight&#39;, &#39;encoder.layer.0.attention.output.dense.bias&#39;, &#39;encoder.layer.0.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.0.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.0.intermediate.dense.weight&#39;, &#39;encoder.layer.0.intermediate.dense.bias&#39;, &#39;encoder.layer.0.output.dense.weight&#39;, &#39;encoder.layer.0.output.dense.bias&#39;, &#39;encoder.layer.0.output.LayerNorm.weight&#39;, &#39;encoder.layer.0.output.LayerNorm.bias&#39;, &#39;encoder.layer.1.attention.self.query.weight&#39;, &#39;encoder.layer.1.attention.self.query.bias&#39;, &#39;encoder.layer.1.attention.self.key.weight&#39;, &#39;encoder.layer.1.attention.self.key.bias&#39;, &#39;encoder.layer.1.attention.self.value.weight&#39;, &#39;encoder.layer.1.attention.self.value.bias&#39;, &#39;encoder.layer.1.attention.output.dense.weight&#39;, &#39;encoder.layer.1.attention.output.dense.bias&#39;, &#39;encoder.layer.1.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.1.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.1.intermediate.dense.weight&#39;, &#39;encoder.layer.1.intermediate.dense.bias&#39;, &#39;encoder.layer.1.output.dense.weight&#39;, &#39;encoder.layer.1.output.dense.bias&#39;, &#39;encoder.layer.1.output.LayerNorm.weight&#39;, &#39;encoder.layer.1.output.LayerNorm.bias&#39;, &#39;encoder.layer.2.attention.self.query.weight&#39;, &#39;encoder.layer.2.attention.self.query.bias&#39;, &#39;encoder.layer.2.attention.self.key.weight&#39;, &#39;encoder.layer.2.attention.self.key.bias&#39;, &#39;encoder.layer.2.attention.self.value.weight&#39;, &#39;encoder.layer.2.attention.self.value.bias&#39;, &#39;encoder.layer.2.attention.output.dense.weight&#39;, &#39;encoder.layer.2.attention.output.dense.bias&#39;, &#39;encoder.layer.2.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.2.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.2.intermediate.dense.weight&#39;, &#39;encoder.layer.2.intermediate.dense.bias&#39;, &#39;encoder.layer.2.output.dense.weight&#39;, &#39;encoder.layer.2.output.dense.bias&#39;, &#39;encoder.layer.2.output.LayerNorm.weight&#39;, &#39;encoder.layer.2.output.LayerNorm.bias&#39;, &#39;encoder.layer.3.attention.self.query.weight&#39;, &#39;encoder.layer.3.attention.self.query.bias&#39;, &#39;encoder.layer.3.attention.self.key.weight&#39;, &#39;encoder.layer.3.attention.self.key.bias&#39;, &#39;encoder.layer.3.attention.self.value.weight&#39;, &#39;encoder.layer.3.attention.self.value.bias&#39;, &#39;encoder.layer.3.attention.output.dense.weight&#39;, &#39;encoder.layer.3.attention.output.dense.bias&#39;, &#39;encoder.layer.3.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.3.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.3.intermediate.dense.weight&#39;, &#39;encoder.layer.3.intermediate.dense.bias&#39;, &#39;encoder.layer.3.output.dense.weight&#39;, &#39;encoder.layer.3.output.dense.bias&#39;, &#39;encoder.layer.3.output.LayerNorm.weight&#39;, &#39;encoder.layer.3.output.LayerNorm.bias&#39;, &#39;encoder.layer.4.attention.self.query.weight&#39;, &#39;encoder.layer.4.attention.self.query.bias&#39;, &#39;encoder.layer.4.attention.self.key.weight&#39;, &#39;encoder.layer.4.attention.self.key.bias&#39;, &#39;encoder.layer.4.attention.self.value.weight&#39;, &#39;encoder.layer.4.attention.self.value.bias&#39;, &#39;encoder.layer.4.attention.output.dense.weight&#39;, &#39;encoder.layer.4.attention.output.dense.bias&#39;, &#39;encoder.layer.4.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.4.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.4.intermediate.dense.weight&#39;, &#39;encoder.layer.4.intermediate.dense.bias&#39;, &#39;encoder.layer.4.output.dense.weight&#39;, &#39;encoder.layer.4.output.dense.bias&#39;, &#39;encoder.layer.4.output.LayerNorm.weight&#39;, &#39;encoder.layer.4.output.LayerNorm.bias&#39;, &#39;encoder.layer.5.attention.self.query.weight&#39;, &#39;encoder.layer.5.attention.self.query.bias&#39;, &#39;encoder.layer.5.attention.self.key.weight&#39;, &#39;encoder.layer.5.attention.self.key.bias&#39;, &#39;encoder.layer.5.attention.self.value.weight&#39;, &#39;encoder.layer.5.attention.self.value.bias&#39;, &#39;encoder.layer.5.attention.output.dense.weight&#39;, &#39;encoder.layer.5.attention.output.dense.bias&#39;, &#39;encoder.layer.5.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.5.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.5.intermediate.dense.weight&#39;, &#39;encoder.layer.5.intermediate.dense.bias&#39;, &#39;encoder.layer.5.output.dense.weight&#39;, &#39;encoder.layer.5.output.dense.bias&#39;, &#39;encoder.layer.5.output.LayerNorm.weight&#39;, &#39;encoder.layer.5.output.LayerNorm.bias&#39;, &#39;encoder.layer.6.attention.self.query.weight&#39;, &#39;encoder.layer.6.attention.self.query.bias&#39;, &#39;encoder.layer.6.attention.self.key.weight&#39;, &#39;encoder.layer.6.attention.self.key.bias&#39;, &#39;encoder.layer.6.attention.self.value.weight&#39;, &#39;encoder.layer.6.attention.self.value.bias&#39;, &#39;encoder.layer.6.attention.output.dense.weight&#39;, &#39;encoder.layer.6.attention.output.dense.bias&#39;, &#39;encoder.layer.6.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.6.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.6.intermediate.dense.weight&#39;, &#39;encoder.layer.6.intermediate.dense.bias&#39;, &#39;encoder.layer.6.output.dense.weight&#39;, &#39;encoder.layer.6.output.dense.bias&#39;, &#39;encoder.layer.6.output.LayerNorm.weight&#39;, &#39;encoder.layer.6.output.LayerNorm.bias&#39;, &#39;encoder.layer.7.attention.self.query.weight&#39;, &#39;encoder.layer.7.attention.self.query.bias&#39;, &#39;encoder.layer.7.attention.self.key.weight&#39;, &#39;encoder.layer.7.attention.self.key.bias&#39;, &#39;encoder.layer.7.attention.self.value.weight&#39;, &#39;encoder.layer.7.attention.self.value.bias&#39;, &#39;encoder.layer.7.attention.output.dense.weight&#39;, &#39;encoder.layer.7.attention.output.dense.bias&#39;, &#39;encoder.layer.7.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.7.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.7.intermediate.dense.weight&#39;, &#39;encoder.layer.7.intermediate.dense.bias&#39;, &#39;encoder.layer.7.output.dense.weight&#39;, &#39;encoder.layer.7.output.dense.bias&#39;, &#39;encoder.layer.7.output.LayerNorm.weight&#39;, &#39;encoder.layer.7.output.LayerNorm.bias&#39;, &#39;encoder.layer.8.attention.self.query.weight&#39;, &#39;encoder.layer.8.attention.self.query.bias&#39;, &#39;encoder.layer.8.attention.self.key.weight&#39;, &#39;encoder.layer.8.attention.self.key.bias&#39;, &#39;encoder.layer.8.attention.self.value.weight&#39;, &#39;encoder.layer.8.attention.self.value.bias&#39;, &#39;encoder.layer.8.attention.output.dense.weight&#39;, &#39;encoder.layer.8.attention.output.dense.bias&#39;, &#39;encoder.layer.8.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.8.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.8.intermediate.dense.weight&#39;, &#39;encoder.layer.8.intermediate.dense.bias&#39;, &#39;encoder.layer.8.output.dense.weight&#39;, &#39;encoder.layer.8.output.dense.bias&#39;, &#39;encoder.layer.8.output.LayerNorm.weight&#39;, &#39;encoder.layer.8.output.LayerNorm.bias&#39;, &#39;encoder.layer.9.attention.self.query.weight&#39;, &#39;encoder.layer.9.attention.self.query.bias&#39;, &#39;encoder.layer.9.attention.self.key.weight&#39;, &#39;encoder.layer.9.attention.self.key.bias&#39;, &#39;encoder.layer.9.attention.self.value.weight&#39;, &#39;encoder.layer.9.attention.self.value.bias&#39;, &#39;encoder.layer.9.attention.output.dense.weight&#39;, &#39;encoder.layer.9.attention.output.dense.bias&#39;, &#39;encoder.layer.9.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.9.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.9.intermediate.dense.weight&#39;, &#39;encoder.layer.9.intermediate.dense.bias&#39;, &#39;encoder.layer.9.output.dense.weight&#39;, &#39;encoder.layer.9.output.dense.bias&#39;, &#39;encoder.layer.9.output.LayerNorm.weight&#39;, &#39;encoder.layer.9.output.LayerNorm.bias&#39;, &#39;encoder.layer.10.attention.self.query.weight&#39;, &#39;encoder.layer.10.attention.self.query.bias&#39;, &#39;encoder.layer.10.attention.self.key.weight&#39;, &#39;encoder.layer.10.attention.self.key.bias&#39;, &#39;encoder.layer.10.attention.self.value.weight&#39;, &#39;encoder.layer.10.attention.self.value.bias&#39;, &#39;encoder.layer.10.attention.output.dense.weight&#39;, &#39;encoder.layer.10.attention.output.dense.bias&#39;, &#39;encoder.layer.10.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.10.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.10.intermediate.dense.weight&#39;, &#39;encoder.layer.10.intermediate.dense.bias&#39;, &#39;encoder.layer.10.output.dense.weight&#39;, &#39;encoder.layer.10.output.dense.bias&#39;, &#39;encoder.layer.10.output.LayerNorm.weight&#39;, &#39;encoder.layer.10.output.LayerNorm.bias&#39;, &#39;encoder.layer.11.attention.self.query.weight&#39;, &#39;encoder.layer.11.attention.self.query.bias&#39;, &#39;encoder.layer.11.attention.self.key.weight&#39;, &#39;encoder.layer.11.attention.self.key.bias&#39;, &#39;encoder.layer.11.attention.self.value.weight&#39;, &#39;encoder.layer.11.attention.self.value.bias&#39;, &#39;encoder.layer.11.attention.output.dense.weight&#39;, &#39;encoder.layer.11.attention.output.dense.bias&#39;, &#39;encoder.layer.11.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.11.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.11.intermediate.dense.weight&#39;, &#39;encoder.layer.11.intermediate.dense.bias&#39;, &#39;encoder.layer.11.output.dense.weight&#39;, &#39;encoder.layer.11.output.dense.bias&#39;, &#39;encoder.layer.11.output.LayerNorm.weight&#39;, &#39;encoder.layer.11.output.LayerNorm.bias&#39;, &#39;pooler.dense.weight&#39;, &#39;pooler.dense.bias&#39;, &#39;classifier.bias&#39;, &#39;classifier.weight&#39;]
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+</pre>
+</div>
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -15264,14 +15239,32 @@ dtype: int64
 
 <pre><code>from_pretrained(pretrained_model_name_or_path, *init_inputs, **kwargs)</code></pre>
 <p>Distilbert hugging face: <a href="https://huggingface.co/transformers/model_doc/distilbert.html">https://huggingface.co/transformers/model_doc/distilbert.html</a></p>
-<div class="highlight"><pre><span></span><span class="n">classtransformers</span><span class="o">.</span><span class="n">DistilBertTokenizerFast</span><span class="p">(</span><span class="n">vocab_file</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><span class="n">transformers</span><span class="o">.</span><span class="n">DistilBertConfig</span><span class="p">(</span>
+<span class="n">vocab_size</span><span class="o">=</span><span class="mi">30522</span><span class="p">,</span>
+<span class="n">max_position_embeddings</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
+<span class="n">sinusoidal_pos_embds</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+<span class="n">n_layers</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> 
+<span class="n">n_heads</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> 
+<span class="n">dim</span><span class="o">=</span><span class="mi">768</span><span class="p">,</span> 
+<span class="n">hidden_dim</span><span class="o">=</span><span class="mi">3072</span><span class="p">,</span> 
+<span class="n">dropout</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> 
+<span class="n">attention_dropout</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> 
+<span class="n">activation</span><span class="o">=</span><span class="s1">&#39;gelu&#39;</span><span class="p">,</span> 
+<span class="n">initializer_range</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> 
+<span class="n">qa_dropout</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> 
+<span class="n">seq_classif_dropout</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> 
+<span class="n">pad_token_id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+<span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+<div class="highlight"><pre><span></span><span class="n">transformers</span><span class="o">.</span><span class="n">DistilBertTokenizerFast</span><span class="p">(</span><span class="n">vocab_file</span><span class="p">,</span>
 <span class="n">tokenizer_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="n">do_lower_case</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="n">unk_token</span><span class="o">=</span><span class="s1">&#39;[UNK]&#39;</span><span class="p">,</span>
 <span class="n">sep_token</span><span class="o">=</span><span class="s1">&#39;[SEP]&#39;</span><span class="p">,</span>
 <span class="n">pad_token</span><span class="o">=</span><span class="s1">&#39;[PAD]&#39;</span><span class="p">,</span>
 <span class="n">cls_token</span><span class="o">=</span><span class="s1">&#39;[CLS]&#39;</span><span class="p">,</span>
-<span class="n">mask_token</span><span class="o">=</span><span class="s1">&#39;[MASK]&#39;</span><span class="p">,</span> <span class="n">tokenize_chinese_chars</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="n">mask_token</span><span class="o">=</span><span class="s1">&#39;[MASK]&#39;</span><span class="p">,</span>
+<span class="n">tokenize_chinese_chars</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="n">strip_accents</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
@@ -15308,167 +15301,17 @@ dtype: int64
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[55]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># transformers</span>
-<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">PreTrainedModel</span><span class="p">,</span> <span class="n">PreTrainedTokenizer</span><span class="p">,</span> <span class="n">PretrainedConfig</span>
-
-<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">BertForSequenceClassification</span><span class="p">,</span> <span class="n">BertTokenizer</span><span class="p">,</span> <span class="n">BertConfig</span>
-<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">RobertaForSequenceClassification</span><span class="p">,</span> <span class="n">RobertaTokenizer</span><span class="p">,</span> <span class="n">RobertaConfig</span>
-<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">XLNetForSequenceClassification</span><span class="p">,</span> <span class="n">XLNetTokenizer</span><span class="p">,</span> <span class="n">XLNetConfig</span>
-<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">XLMForSequenceClassification</span><span class="p">,</span> <span class="n">XLMTokenizer</span><span class="p">,</span> <span class="n">XLMConfig</span>
-<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">DistilBertForSequenceClassification</span><span class="p">,</span> <span class="n">DistilBertTokenizer</span><span class="p">,</span> <span class="n">DistilBertConfig</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[56]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">MODEL_CLASSES</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;bert&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">BertForSequenceClassification</span><span class="p">,</span> <span class="n">BertTokenizer</span><span class="p">,</span> <span class="n">BertConfig</span><span class="p">),</span>
-    <span class="s1">&#39;xlnet&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">XLNetForSequenceClassification</span><span class="p">,</span> <span class="n">XLNetTokenizer</span><span class="p">,</span> <span class="n">XLNetConfig</span><span class="p">),</span>
-    <span class="s1">&#39;xlm&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">XLMForSequenceClassification</span><span class="p">,</span> <span class="n">XLMTokenizer</span><span class="p">,</span> <span class="n">XLMConfig</span><span class="p">),</span>
-    <span class="s1">&#39;roberta&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">RobertaForSequenceClassification</span><span class="p">,</span> <span class="n">RobertaTokenizer</span><span class="p">,</span> <span class="n">RobertaConfig</span><span class="p">),</span>
-    <span class="s1">&#39;distilbert&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">DistilBertForSequenceClassification</span><span class="p">,</span> <span class="n">DistilBertTokenizer</span><span class="p">,</span> <span class="n">DistilBertConfig</span><span class="p">)</span>
-<span class="p">}</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Parameters</span>
-<span class="c1"># seed = SEED</span>
-<span class="c1"># use_fp16 = False</span>
-<span class="c1"># bs = 16</span>
-
-<span class="c1"># model_type = &#39;roberta&#39;</span>
-<span class="c1"># pretrained_model_name = &#39;roberta-base&#39;</span>
-
-<span class="c1"># model_type = &#39;bert&#39;</span>
-<span class="c1"># pretrained_model_name=&#39;bert-base-uncased&#39;</span>
-
-<span class="c1"># model_type = &#39;distilbert&#39;</span>
-<span class="c1"># pretrained_model_name = &#39;distilbert-base-uncased&#39;</span>
-
-<span class="c1">#model_type = &#39;xlm&#39;</span>
-<span class="c1">#pretrained_model_name = &#39;xlm-clm-enfr-1024&#39;</span>
-
-<span class="c1"># model_type = &#39;xlnet&#39;</span>
-<span class="c1"># pretrained_model_name = &#39;xlnet-base-cased&#39;</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[23]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vocab_file</span> <span class="o">=</span> <span class="s1">&#39;distilbert-base-uncased&#39;</span>
-<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">transformers</span><span class="o">.</span><span class="n">DistilBertTokenizerFast</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
-    <span class="n">vocab_file</span><span class="p">,</span><span class="n">do_lower_case</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># vocab_file = &#39;distilbert-base-uncased&#39;</span>
+<span class="c1"># tokenizer = transformers.DistilBertTokenizerFast.from_pretrained(</span>
+<span class="c1">#     vocab_file,do_lower_case=True)</span>
 </pre></div>
 
      </div>
 </div>
 </div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-
-
-
-<div id="7b0f9e6e-e867-4c37-af70-051d4d5df10e" class="jupyter-widgets jp-OutputArea-output ">
-<script type="text/javascript">
-var element = document.getElementById('7b0f9e6e-e867-4c37-af70-051d4d5df10e');
-</script>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "d5e6866e5f95450197b06f1aaf53f1e3", "version_minor": 0, "version_major": 2}
-</script>
-</div>
-
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-
-
-
-<div id="944cec19-88d4-4e73-a13b-3c812c55eb7d" class="jupyter-widgets jp-OutputArea-output ">
-<script type="text/javascript">
-var element = document.getElementById('944cec19-88d4-4e73-a13b-3c812c55eb7d');
-</script>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "dfdf7377df6f4187b3917e80fdd43f94", "version_minor": 0, "version_major": 2}
-</script>
-</div>
-
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>
-</pre>
-</div>
-</div>
-
-</div>
-
 </div>
 
 </div>
@@ -15519,12 +15362,15 @@ var element = document.getElementById('944cec19-88d4-4e73-a13b-3c812c55eb7d');
 <span class="n">max_length</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># choose about 100 for colab</span>
 <span class="n">encodings</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">batch_encode_plus</span><span class="p">(</span><span class="n">list_text</span><span class="p">,</span>
                 <span class="n">max_length</span><span class="o">=</span><span class="n">max_length</span><span class="p">,</span>
+                <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="c1"># if you choose false, colab will crash</span>
                 <span class="n">return_token_type_ids</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">pad_to_max_length</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">padding</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;tokenizer outputs: &#39;</span><span class="p">,</span> <span class="n">encodings</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
  
 <span class="c1"># dict_keys([&#39;input_ids&#39;, &#39;token_type_ids&#39;, &#39;attention_mask&#39;])</span>
+
+<span class="c1"># colab error: Your session crashed after using all available RAM.</span>
 </pre></div>
 
      </div>
@@ -15543,24 +15389,10 @@ var element = document.getElementById('944cec19-88d4-4e73-a13b-3c812c55eb7d');
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#39;longest_first&#39; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
-/usr/local/lib/python3.6/dist-packages/transformers/tokenization_utils_base.py:2142: FutureWarning: The `pad_to_max_length` argument is deprecated and will be removed in a future version, use `padding=True` or `padding=&#39;longest&#39;` to pad to the longest sequence in the batch, or use `padding=&#39;max_length&#39;` to pad to a max length. In this case, you can give a specific length with `max_length` (e.g. `max_length=45`) or leave max_length to None to pad to the maximal input size of the model (e.g. 512 for Bert).
-  FutureWarning,
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>tokenizer outputs:  dict_keys([&#39;input_ids&#39;, &#39;token_type_ids&#39;, &#39;attention_mask&#39;])
-CPU times: user 50 s, sys: 1.21 s, total: 51.2 s
-Wall time: 27.7 s
+CPU times: user 52.4 s, sys: 1.17 s, total: 53.6 s
+Wall time: 15.9 s
 </pre>
 </div>
 </div>
@@ -15762,8 +15594,8 @@ Name: one_hot_labels, dtype: object</pre>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>CPU times: user 3.2 s, sys: 113 ms, total: 3.31 s
-Wall time: 3.33 s
+<pre>CPU times: user 2.96 s, sys: 70.2 ms, total: 3.03 s
+Wall time: 3.03 s
 </pre>
 </div>
 </div>
@@ -15846,20 +15678,6 @@ Wall time: 3.33 s
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[34]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># !ls</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
@@ -15874,13 +15692,13 @@ Wall time: 3.33 s
 </pre></div>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[35]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[34]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># show_methods(transformers,contains=&#39;SequenceClassification&#39;,ncols=2)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">show_methods</span><span class="p">(</span><span class="n">transformers</span><span class="p">,</span><span class="n">contains</span><span class="o">=</span><span class="s1">&#39;SequenceClassification&#39;</span><span class="p">,</span><span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15888,19 +15706,152 @@ Wall time: 3.33 s
 </div>
 </div>
 
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[34]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>AlbertForSequenceClassification</td>
+      <td>TFAlbertForSequenceClassification</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>AutoModelForSequenceClassification</td>
+      <td>TFAutoModelForSequenceClassification</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>BartForSequenceClassification</td>
+      <td>TFBertForSequenceClassification</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>BertForSequenceClassification</td>
+      <td>TFCamembertForSequenceClassification</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>CamembertForSequenceClassification</td>
+      <td>TFDistilBertForSequenceClassification</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>DebertaForSequenceClassification</td>
+      <td>TFElectraForSequenceClassification</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>DistilBertForSequenceClassification</td>
+      <td>TFFlaubertForSequenceClassification</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>ElectraForSequenceClassification</td>
+      <td>TFFunnelForSequenceClassification</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>FlaubertForSequenceClassification</td>
+      <td>TFLongformerForSequenceClassification</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>FunnelForSequenceClassification</td>
+      <td>TFMobileBertForSequenceClassification</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>GPT2ForSequenceClassification</td>
+      <td>TFRobertaForSequenceClassification</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>LongformerForSequenceClassification</td>
+      <td>TFXLMForSequenceClassification</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>MobileBertForSequenceClassification</td>
+      <td>TFXLMRobertaForSequenceClassification</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>OpenAIGPTForSequenceClassification</td>
+      <td>TFXLNetForSequenceClassification</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>ReformerForSequenceClassification</td>
+      <td>XLMForSequenceClassification</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>RobertaForSequenceClassification</td>
+      <td>XLMRobertaForSequenceClassification</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>SqueezeBertForSequenceClassification</td>
+      <td>XLNetForSequenceClassification</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[36]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[66]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
-<span class="c1"># Load classification model</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># %%time</span>
 
-<span class="n">num_labels</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols_label</span><span class="p">)</span> <span class="c1"># NUM_CLASSES</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">transformers</span><span class="o">.</span><span class="n">BertForSequenceClassification</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
-    <span class="n">vocab_file</span><span class="p">,</span> <span class="n">num_labels</span><span class="o">=</span><span class="n">num_labels</span><span class="p">)</span>
+<span class="c1"># # num_labels = len(cols_label) # NUM_CLASSES</span>
+<span class="c1"># # model = transformers.BertForSequenceClassification.from_pretrained(</span>
+<span class="c1"># #     vocab_file, num_labels=num_labels)</span>
+
 <span class="n">model</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;using cuda&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15919,93 +15870,8 @@ Wall time: 3.33 s
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
-
-
-
-
-
-<div id="d7c8953d-4288-476d-8e9c-d7894d7ff81e" class="jupyter-widgets jp-OutputArea-output ">
-<script type="text/javascript">
-var element = document.getElementById('d7c8953d-4288-476d-8e9c-d7894d7ff81e');
-</script>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "33f348856f27461bbdfc40c94d08164c", "version_minor": 0, "version_major": 2}
-</script>
-</div>
-
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-
-
-
-
-<div id="c445f6e6-f37a-4003-822a-ce4fa7c76822" class="jupyter-widgets jp-OutputArea-output ">
-<script type="text/javascript">
-var element = document.getElementById('c445f6e6-f37a-4003-822a-ce4fa7c76822');
-</script>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "0da0b1082b0f4edebc53f28eca292d64", "version_minor": 0, "version_major": 2}
-</script>
-</div>
-
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>Some weights of the model checkpoint at distilbert-base-uncased were not used when initializing BertForSequenceClassification: [&#39;distilbert.embeddings.word_embeddings.weight&#39;, &#39;distilbert.embeddings.position_embeddings.weight&#39;, &#39;distilbert.embeddings.LayerNorm.weight&#39;, &#39;distilbert.embeddings.LayerNorm.bias&#39;, &#39;distilbert.transformer.layer.0.attention.q_lin.weight&#39;, &#39;distilbert.transformer.layer.0.attention.q_lin.bias&#39;, &#39;distilbert.transformer.layer.0.attention.k_lin.weight&#39;, &#39;distilbert.transformer.layer.0.attention.k_lin.bias&#39;, &#39;distilbert.transformer.layer.0.attention.v_lin.weight&#39;, &#39;distilbert.transformer.layer.0.attention.v_lin.bias&#39;, &#39;distilbert.transformer.layer.0.attention.out_lin.weight&#39;, &#39;distilbert.transformer.layer.0.attention.out_lin.bias&#39;, &#39;distilbert.transformer.layer.0.sa_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.0.sa_layer_norm.bias&#39;, &#39;distilbert.transformer.layer.0.ffn.lin1.weight&#39;, &#39;distilbert.transformer.layer.0.ffn.lin1.bias&#39;, &#39;distilbert.transformer.layer.0.ffn.lin2.weight&#39;, &#39;distilbert.transformer.layer.0.ffn.lin2.bias&#39;, &#39;distilbert.transformer.layer.0.output_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.0.output_layer_norm.bias&#39;, &#39;distilbert.transformer.layer.1.attention.q_lin.weight&#39;, &#39;distilbert.transformer.layer.1.attention.q_lin.bias&#39;, &#39;distilbert.transformer.layer.1.attention.k_lin.weight&#39;, &#39;distilbert.transformer.layer.1.attention.k_lin.bias&#39;, &#39;distilbert.transformer.layer.1.attention.v_lin.weight&#39;, &#39;distilbert.transformer.layer.1.attention.v_lin.bias&#39;, &#39;distilbert.transformer.layer.1.attention.out_lin.weight&#39;, &#39;distilbert.transformer.layer.1.attention.out_lin.bias&#39;, &#39;distilbert.transformer.layer.1.sa_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.1.sa_layer_norm.bias&#39;, &#39;distilbert.transformer.layer.1.ffn.lin1.weight&#39;, &#39;distilbert.transformer.layer.1.ffn.lin1.bias&#39;, &#39;distilbert.transformer.layer.1.ffn.lin2.weight&#39;, &#39;distilbert.transformer.layer.1.ffn.lin2.bias&#39;, &#39;distilbert.transformer.layer.1.output_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.1.output_layer_norm.bias&#39;, &#39;distilbert.transformer.layer.2.attention.q_lin.weight&#39;, &#39;distilbert.transformer.layer.2.attention.q_lin.bias&#39;, &#39;distilbert.transformer.layer.2.attention.k_lin.weight&#39;, &#39;distilbert.transformer.layer.2.attention.k_lin.bias&#39;, &#39;distilbert.transformer.layer.2.attention.v_lin.weight&#39;, &#39;distilbert.transformer.layer.2.attention.v_lin.bias&#39;, &#39;distilbert.transformer.layer.2.attention.out_lin.weight&#39;, &#39;distilbert.transformer.layer.2.attention.out_lin.bias&#39;, &#39;distilbert.transformer.layer.2.sa_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.2.sa_layer_norm.bias&#39;, &#39;distilbert.transformer.layer.2.ffn.lin1.weight&#39;, &#39;distilbert.transformer.layer.2.ffn.lin1.bias&#39;, &#39;distilbert.transformer.layer.2.ffn.lin2.weight&#39;, &#39;distilbert.transformer.layer.2.ffn.lin2.bias&#39;, &#39;distilbert.transformer.layer.2.output_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.2.output_layer_norm.bias&#39;, &#39;distilbert.transformer.layer.3.attention.q_lin.weight&#39;, &#39;distilbert.transformer.layer.3.attention.q_lin.bias&#39;, &#39;distilbert.transformer.layer.3.attention.k_lin.weight&#39;, &#39;distilbert.transformer.layer.3.attention.k_lin.bias&#39;, &#39;distilbert.transformer.layer.3.attention.v_lin.weight&#39;, &#39;distilbert.transformer.layer.3.attention.v_lin.bias&#39;, &#39;distilbert.transformer.layer.3.attention.out_lin.weight&#39;, &#39;distilbert.transformer.layer.3.attention.out_lin.bias&#39;, &#39;distilbert.transformer.layer.3.sa_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.3.sa_layer_norm.bias&#39;, &#39;distilbert.transformer.layer.3.ffn.lin1.weight&#39;, &#39;distilbert.transformer.layer.3.ffn.lin1.bias&#39;, &#39;distilbert.transformer.layer.3.ffn.lin2.weight&#39;, &#39;distilbert.transformer.layer.3.ffn.lin2.bias&#39;, &#39;distilbert.transformer.layer.3.output_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.3.output_layer_norm.bias&#39;, &#39;distilbert.transformer.layer.4.attention.q_lin.weight&#39;, &#39;distilbert.transformer.layer.4.attention.q_lin.bias&#39;, &#39;distilbert.transformer.layer.4.attention.k_lin.weight&#39;, &#39;distilbert.transformer.layer.4.attention.k_lin.bias&#39;, &#39;distilbert.transformer.layer.4.attention.v_lin.weight&#39;, &#39;distilbert.transformer.layer.4.attention.v_lin.bias&#39;, &#39;distilbert.transformer.layer.4.attention.out_lin.weight&#39;, &#39;distilbert.transformer.layer.4.attention.out_lin.bias&#39;, &#39;distilbert.transformer.layer.4.sa_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.4.sa_layer_norm.bias&#39;, &#39;distilbert.transformer.layer.4.ffn.lin1.weight&#39;, &#39;distilbert.transformer.layer.4.ffn.lin1.bias&#39;, &#39;distilbert.transformer.layer.4.ffn.lin2.weight&#39;, &#39;distilbert.transformer.layer.4.ffn.lin2.bias&#39;, &#39;distilbert.transformer.layer.4.output_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.4.output_layer_norm.bias&#39;, &#39;distilbert.transformer.layer.5.attention.q_lin.weight&#39;, &#39;distilbert.transformer.layer.5.attention.q_lin.bias&#39;, &#39;distilbert.transformer.layer.5.attention.k_lin.weight&#39;, &#39;distilbert.transformer.layer.5.attention.k_lin.bias&#39;, &#39;distilbert.transformer.layer.5.attention.v_lin.weight&#39;, &#39;distilbert.transformer.layer.5.attention.v_lin.bias&#39;, &#39;distilbert.transformer.layer.5.attention.out_lin.weight&#39;, &#39;distilbert.transformer.layer.5.attention.out_lin.bias&#39;, &#39;distilbert.transformer.layer.5.sa_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.5.sa_layer_norm.bias&#39;, &#39;distilbert.transformer.layer.5.ffn.lin1.weight&#39;, &#39;distilbert.transformer.layer.5.ffn.lin1.bias&#39;, &#39;distilbert.transformer.layer.5.ffn.lin2.weight&#39;, &#39;distilbert.transformer.layer.5.ffn.lin2.bias&#39;, &#39;distilbert.transformer.layer.5.output_layer_norm.weight&#39;, &#39;distilbert.transformer.layer.5.output_layer_norm.bias&#39;, &#39;vocab_transform.weight&#39;, &#39;vocab_transform.bias&#39;, &#39;vocab_layer_norm.weight&#39;, &#39;vocab_layer_norm.bias&#39;, &#39;vocab_projector.weight&#39;, &#39;vocab_projector.bias&#39;]
-- This IS expected if you are initializing BertForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
-- This IS NOT expected if you are initializing BertForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
-Some weights of BertForSequenceClassification were not initialized from the model checkpoint at distilbert-base-uncased and are newly initialized: [&#39;embeddings.word_embeddings.weight&#39;, &#39;embeddings.position_embeddings.weight&#39;, &#39;embeddings.token_type_embeddings.weight&#39;, &#39;embeddings.LayerNorm.weight&#39;, &#39;embeddings.LayerNorm.bias&#39;, &#39;encoder.layer.0.attention.self.query.weight&#39;, &#39;encoder.layer.0.attention.self.query.bias&#39;, &#39;encoder.layer.0.attention.self.key.weight&#39;, &#39;encoder.layer.0.attention.self.key.bias&#39;, &#39;encoder.layer.0.attention.self.value.weight&#39;, &#39;encoder.layer.0.attention.self.value.bias&#39;, &#39;encoder.layer.0.attention.output.dense.weight&#39;, &#39;encoder.layer.0.attention.output.dense.bias&#39;, &#39;encoder.layer.0.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.0.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.0.intermediate.dense.weight&#39;, &#39;encoder.layer.0.intermediate.dense.bias&#39;, &#39;encoder.layer.0.output.dense.weight&#39;, &#39;encoder.layer.0.output.dense.bias&#39;, &#39;encoder.layer.0.output.LayerNorm.weight&#39;, &#39;encoder.layer.0.output.LayerNorm.bias&#39;, &#39;encoder.layer.1.attention.self.query.weight&#39;, &#39;encoder.layer.1.attention.self.query.bias&#39;, &#39;encoder.layer.1.attention.self.key.weight&#39;, &#39;encoder.layer.1.attention.self.key.bias&#39;, &#39;encoder.layer.1.attention.self.value.weight&#39;, &#39;encoder.layer.1.attention.self.value.bias&#39;, &#39;encoder.layer.1.attention.output.dense.weight&#39;, &#39;encoder.layer.1.attention.output.dense.bias&#39;, &#39;encoder.layer.1.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.1.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.1.intermediate.dense.weight&#39;, &#39;encoder.layer.1.intermediate.dense.bias&#39;, &#39;encoder.layer.1.output.dense.weight&#39;, &#39;encoder.layer.1.output.dense.bias&#39;, &#39;encoder.layer.1.output.LayerNorm.weight&#39;, &#39;encoder.layer.1.output.LayerNorm.bias&#39;, &#39;encoder.layer.2.attention.self.query.weight&#39;, &#39;encoder.layer.2.attention.self.query.bias&#39;, &#39;encoder.layer.2.attention.self.key.weight&#39;, &#39;encoder.layer.2.attention.self.key.bias&#39;, &#39;encoder.layer.2.attention.self.value.weight&#39;, &#39;encoder.layer.2.attention.self.value.bias&#39;, &#39;encoder.layer.2.attention.output.dense.weight&#39;, &#39;encoder.layer.2.attention.output.dense.bias&#39;, &#39;encoder.layer.2.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.2.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.2.intermediate.dense.weight&#39;, &#39;encoder.layer.2.intermediate.dense.bias&#39;, &#39;encoder.layer.2.output.dense.weight&#39;, &#39;encoder.layer.2.output.dense.bias&#39;, &#39;encoder.layer.2.output.LayerNorm.weight&#39;, &#39;encoder.layer.2.output.LayerNorm.bias&#39;, &#39;encoder.layer.3.attention.self.query.weight&#39;, &#39;encoder.layer.3.attention.self.query.bias&#39;, &#39;encoder.layer.3.attention.self.key.weight&#39;, &#39;encoder.layer.3.attention.self.key.bias&#39;, &#39;encoder.layer.3.attention.self.value.weight&#39;, &#39;encoder.layer.3.attention.self.value.bias&#39;, &#39;encoder.layer.3.attention.output.dense.weight&#39;, &#39;encoder.layer.3.attention.output.dense.bias&#39;, &#39;encoder.layer.3.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.3.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.3.intermediate.dense.weight&#39;, &#39;encoder.layer.3.intermediate.dense.bias&#39;, &#39;encoder.layer.3.output.dense.weight&#39;, &#39;encoder.layer.3.output.dense.bias&#39;, &#39;encoder.layer.3.output.LayerNorm.weight&#39;, &#39;encoder.layer.3.output.LayerNorm.bias&#39;, &#39;encoder.layer.4.attention.self.query.weight&#39;, &#39;encoder.layer.4.attention.self.query.bias&#39;, &#39;encoder.layer.4.attention.self.key.weight&#39;, &#39;encoder.layer.4.attention.self.key.bias&#39;, &#39;encoder.layer.4.attention.self.value.weight&#39;, &#39;encoder.layer.4.attention.self.value.bias&#39;, &#39;encoder.layer.4.attention.output.dense.weight&#39;, &#39;encoder.layer.4.attention.output.dense.bias&#39;, &#39;encoder.layer.4.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.4.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.4.intermediate.dense.weight&#39;, &#39;encoder.layer.4.intermediate.dense.bias&#39;, &#39;encoder.layer.4.output.dense.weight&#39;, &#39;encoder.layer.4.output.dense.bias&#39;, &#39;encoder.layer.4.output.LayerNorm.weight&#39;, &#39;encoder.layer.4.output.LayerNorm.bias&#39;, &#39;encoder.layer.5.attention.self.query.weight&#39;, &#39;encoder.layer.5.attention.self.query.bias&#39;, &#39;encoder.layer.5.attention.self.key.weight&#39;, &#39;encoder.layer.5.attention.self.key.bias&#39;, &#39;encoder.layer.5.attention.self.value.weight&#39;, &#39;encoder.layer.5.attention.self.value.bias&#39;, &#39;encoder.layer.5.attention.output.dense.weight&#39;, &#39;encoder.layer.5.attention.output.dense.bias&#39;, &#39;encoder.layer.5.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.5.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.5.intermediate.dense.weight&#39;, &#39;encoder.layer.5.intermediate.dense.bias&#39;, &#39;encoder.layer.5.output.dense.weight&#39;, &#39;encoder.layer.5.output.dense.bias&#39;, &#39;encoder.layer.5.output.LayerNorm.weight&#39;, &#39;encoder.layer.5.output.LayerNorm.bias&#39;, &#39;encoder.layer.6.attention.self.query.weight&#39;, &#39;encoder.layer.6.attention.self.query.bias&#39;, &#39;encoder.layer.6.attention.self.key.weight&#39;, &#39;encoder.layer.6.attention.self.key.bias&#39;, &#39;encoder.layer.6.attention.self.value.weight&#39;, &#39;encoder.layer.6.attention.self.value.bias&#39;, &#39;encoder.layer.6.attention.output.dense.weight&#39;, &#39;encoder.layer.6.attention.output.dense.bias&#39;, &#39;encoder.layer.6.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.6.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.6.intermediate.dense.weight&#39;, &#39;encoder.layer.6.intermediate.dense.bias&#39;, &#39;encoder.layer.6.output.dense.weight&#39;, &#39;encoder.layer.6.output.dense.bias&#39;, &#39;encoder.layer.6.output.LayerNorm.weight&#39;, &#39;encoder.layer.6.output.LayerNorm.bias&#39;, &#39;encoder.layer.7.attention.self.query.weight&#39;, &#39;encoder.layer.7.attention.self.query.bias&#39;, &#39;encoder.layer.7.attention.self.key.weight&#39;, &#39;encoder.layer.7.attention.self.key.bias&#39;, &#39;encoder.layer.7.attention.self.value.weight&#39;, &#39;encoder.layer.7.attention.self.value.bias&#39;, &#39;encoder.layer.7.attention.output.dense.weight&#39;, &#39;encoder.layer.7.attention.output.dense.bias&#39;, &#39;encoder.layer.7.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.7.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.7.intermediate.dense.weight&#39;, &#39;encoder.layer.7.intermediate.dense.bias&#39;, &#39;encoder.layer.7.output.dense.weight&#39;, &#39;encoder.layer.7.output.dense.bias&#39;, &#39;encoder.layer.7.output.LayerNorm.weight&#39;, &#39;encoder.layer.7.output.LayerNorm.bias&#39;, &#39;encoder.layer.8.attention.self.query.weight&#39;, &#39;encoder.layer.8.attention.self.query.bias&#39;, &#39;encoder.layer.8.attention.self.key.weight&#39;, &#39;encoder.layer.8.attention.self.key.bias&#39;, &#39;encoder.layer.8.attention.self.value.weight&#39;, &#39;encoder.layer.8.attention.self.value.bias&#39;, &#39;encoder.layer.8.attention.output.dense.weight&#39;, &#39;encoder.layer.8.attention.output.dense.bias&#39;, &#39;encoder.layer.8.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.8.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.8.intermediate.dense.weight&#39;, &#39;encoder.layer.8.intermediate.dense.bias&#39;, &#39;encoder.layer.8.output.dense.weight&#39;, &#39;encoder.layer.8.output.dense.bias&#39;, &#39;encoder.layer.8.output.LayerNorm.weight&#39;, &#39;encoder.layer.8.output.LayerNorm.bias&#39;, &#39;encoder.layer.9.attention.self.query.weight&#39;, &#39;encoder.layer.9.attention.self.query.bias&#39;, &#39;encoder.layer.9.attention.self.key.weight&#39;, &#39;encoder.layer.9.attention.self.key.bias&#39;, &#39;encoder.layer.9.attention.self.value.weight&#39;, &#39;encoder.layer.9.attention.self.value.bias&#39;, &#39;encoder.layer.9.attention.output.dense.weight&#39;, &#39;encoder.layer.9.attention.output.dense.bias&#39;, &#39;encoder.layer.9.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.9.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.9.intermediate.dense.weight&#39;, &#39;encoder.layer.9.intermediate.dense.bias&#39;, &#39;encoder.layer.9.output.dense.weight&#39;, &#39;encoder.layer.9.output.dense.bias&#39;, &#39;encoder.layer.9.output.LayerNorm.weight&#39;, &#39;encoder.layer.9.output.LayerNorm.bias&#39;, &#39;encoder.layer.10.attention.self.query.weight&#39;, &#39;encoder.layer.10.attention.self.query.bias&#39;, &#39;encoder.layer.10.attention.self.key.weight&#39;, &#39;encoder.layer.10.attention.self.key.bias&#39;, &#39;encoder.layer.10.attention.self.value.weight&#39;, &#39;encoder.layer.10.attention.self.value.bias&#39;, &#39;encoder.layer.10.attention.output.dense.weight&#39;, &#39;encoder.layer.10.attention.output.dense.bias&#39;, &#39;encoder.layer.10.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.10.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.10.intermediate.dense.weight&#39;, &#39;encoder.layer.10.intermediate.dense.bias&#39;, &#39;encoder.layer.10.output.dense.weight&#39;, &#39;encoder.layer.10.output.dense.bias&#39;, &#39;encoder.layer.10.output.LayerNorm.weight&#39;, &#39;encoder.layer.10.output.LayerNorm.bias&#39;, &#39;encoder.layer.11.attention.self.query.weight&#39;, &#39;encoder.layer.11.attention.self.query.bias&#39;, &#39;encoder.layer.11.attention.self.key.weight&#39;, &#39;encoder.layer.11.attention.self.key.bias&#39;, &#39;encoder.layer.11.attention.self.value.weight&#39;, &#39;encoder.layer.11.attention.self.value.bias&#39;, &#39;encoder.layer.11.attention.output.dense.weight&#39;, &#39;encoder.layer.11.attention.output.dense.bias&#39;, &#39;encoder.layer.11.attention.output.LayerNorm.weight&#39;, &#39;encoder.layer.11.attention.output.LayerNorm.bias&#39;, &#39;encoder.layer.11.intermediate.dense.weight&#39;, &#39;encoder.layer.11.intermediate.dense.bias&#39;, &#39;encoder.layer.11.output.dense.weight&#39;, &#39;encoder.layer.11.output.dense.bias&#39;, &#39;encoder.layer.11.output.LayerNorm.weight&#39;, &#39;encoder.layer.11.output.LayerNorm.bias&#39;, &#39;pooler.dense.weight&#39;, &#39;pooler.dense.bias&#39;, &#39;classifier.weight&#39;, &#39;classifier.bias&#39;]
-You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>CPU times: user 9.27 s, sys: 2.28 s, total: 11.5 s
-Wall time: 17.1 s
+<pre>using cuda
 </pre>
 </div>
 </div>
@@ -16017,7 +15883,7 @@ Wall time: 17.1 s
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[37]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[36]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">show_methods</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
@@ -16036,7 +15902,7 @@ Wall time: 17.1 s
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[37]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[36]:</div>
 
 
 
@@ -16223,7 +16089,7 @@ Wall time: 17.1 s
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[38]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[37]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">show_methods</span><span class="p">(</span><span class="n">transformers</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="n">contains</span><span class="o">=</span><span class="s1">&#39;Adam&#39;</span><span class="p">)</span>
@@ -16242,7 +16108,7 @@ Wall time: 17.1 s
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[38]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[37]:</div>
 
 
 
@@ -16291,7 +16157,7 @@ Wall time: 17.1 s
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[39]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[38]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># setting custom optimization parameters.</span>
@@ -16318,36 +16184,10 @@ Wall time: 17.1 s
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[40]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># params_opt_group2 = [</span>
-<span class="c1">#     # non decay params</span>
-<span class="c1">#     {&#39;params&#39;: [p for (n, p) in params_opt</span>
-<span class="c1">#                 if n not in no_decay],</span>
-<span class="c1">#      &#39;weight_decay_rate&#39;: 0.01},</span>
-
-<span class="c1">#     # decay params</span>
-<span class="c1">#     {&#39;params&#39;: [p for n, p in params_opt</span>
-<span class="c1">#                 if n in no_decay ],</span>
-<span class="c1">#      &#39;weight_decay_rate&#39;: 0.0}</span>
-<span class="c1"># ]</span>
-
-<span class="c1"># # this does not work</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[41]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[39]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">params_opt</span><span class="p">))</span>
@@ -16386,7 +16226,7 @@ tensor([0., 0., 0., 0., 0., 0.], device=&#39;cuda:0&#39;, requires_grad=True))
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[42]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[40]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">params_opt</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># key is string</span>
@@ -16405,7 +16245,7 @@ tensor([0., 0., 0., 0., 0., 0.], device=&#39;cuda:0&#39;, requires_grad=True))
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[42]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[40]:</div>
 
 
 
@@ -16423,7 +16263,7 @@ tensor([0., 0., 0., 0., 0., 0.], device=&#39;cuda:0&#39;, requires_grad=True))
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[43]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[41]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">params_opt</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">][:</span><span class="mi">2</span><span class="p">]</span> <span class="c1"># value is tensor</span>
@@ -16442,13 +16282,13 @@ tensor([0., 0., 0., 0., 0., 0.], device=&#39;cuda:0&#39;, requires_grad=True))
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[43]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[41]:</div>
 
 
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>tensor([ 0.0283, -0.0068], device=&#39;cuda:0&#39;, grad_fn=&lt;SliceBackward&gt;)</pre>
+<pre>tensor([ 0.0015, -0.0127], device=&#39;cuda:0&#39;, grad_fn=&lt;SliceBackward&gt;)</pre>
 </div>
 
 </div>
@@ -16460,7 +16300,7 @@ tensor([0., 0., 0., 0., 0., 0.], device=&#39;cuda:0&#39;, requires_grad=True))
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[44]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[42]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">transformers</span><span class="o">.</span><span class="n">AdamW</span><span class="p">(</span><span class="n">params_opt_group</span><span class="p">,</span><span class="n">lr</span><span class="o">=</span><span class="mf">2e-5</span><span class="p">,</span><span class="n">correct_bias</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -16491,10 +16331,11 @@ tensor([0., 0., 0., 0., 0., 0.], device=&#39;cuda:0&#39;, requires_grad=True))
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[45]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[43]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">torch.nn</span> <span class="kn">import</span> <span class="n">BCEWithLogitsLoss</span><span class="p">,</span> <span class="n">BCELoss</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">trange</span>
 </pre></div>
 
      </div>
@@ -16505,14 +16346,10 @@ tensor([0., 0., 0., 0., 0., 0.], device=&#39;cuda:0&#39;, requires_grad=True))
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[46]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[44]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
-
-<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">trange</span>
-
-<span class="c1"># Store our loss and accuracy for plotting</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Store our loss and accuracy for plotting</span>
 <span class="n">train_loss_set</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="c1"># Number of training epochs (authors recommend between 2 and 4 for xlnet)</span>
@@ -16652,7 +16489,7 @@ tensor([0., 0., 0., 0., 0., 0.], device=&#39;cuda:0&#39;, requires_grad=True))
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Train loss: 0.0721616788473695
+<pre>Train loss: 0.07192983261874426
 </pre>
 </div>
 </div>
@@ -16664,7 +16501,7 @@ tensor([0., 0., 0., 0., 0., 0.], device=&#39;cuda:0&#39;, requires_grad=True))
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>Epoch:  33%|███▎      | 1/3 [36:16&lt;1:12:32, 2176.25s/it]</pre>
+<pre>Epoch:  33%|███▎      | 1/3 [16:54&lt;33:49, 1014.81s/it]</pre>
 </div>
 </div>
 
@@ -16675,9 +16512,9 @@ tensor([0., 0., 0., 0., 0., 0.], device=&#39;cuda:0&#39;, requires_grad=True))
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>F1 Validation Accuracy:  72.1601153984854
-Flat Validation Accuracy:  91.32852890490365
-Train loss: 0.049945328637924634
+<pre>F1 Validation Accuracy:  64.4510657804263
+Flat Validation Accuracy:  91.540028199906
+Train loss: 0.050434639209280256
 </pre>
 </div>
 </div>
@@ -16689,7 +16526,7 @@ Train loss: 0.049945328637924634
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>Epoch:  67%|██████▋   | 2/3 [1:12:38&lt;36:17, 2177.93s/it]</pre>
+<pre>Epoch:  67%|██████▋   | 2/3 [33:48&lt;16:54, 1014.52s/it]</pre>
 </div>
 </div>
 
@@ -16700,35 +16537,33 @@ Train loss: 0.049945328637924634
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>F1 Validation Accuracy:  74.12663755458514
-Flat Validation Accuracy:  91.43819520601598
-Train loss: 0.04527547570951794
-</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>Epoch: 100%|██████████| 3/3 [1:48:57&lt;00:00, 2179.33s/it]</pre>
-</div>
-</div>
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>F1 Validation Accuracy:  72.85318559556787
+<pre>F1 Validation Accuracy:  73.57074109720885
 Flat Validation Accuracy:  92.0491931693561
-CPU times: user 1h 3min 52s, sys: 44min 48s, total: 1h 48min 41s
-Wall time: 1h 48min 57s
+Train loss: 0.045808715516655565
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>Epoch: 100%|██████████| 3/3 [50:42&lt;00:00, 1014.23s/it]</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>F1 Validation Accuracy:  70.7133917396746
+Flat Validation Accuracy:  92.02569324768918
 </pre>
 </div>
 </div>
@@ -16752,7 +16587,7 @@ Wall time: 1h 48min 57s
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[47]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[45]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#  torch.save(model.state_dict(), &#39;bert_model_toxic&#39;)</span>
@@ -16771,7 +16606,7 @@ Wall time: 1h 48min 57s
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[48]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[46]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">cols_label</span>
@@ -16790,7 +16625,7 @@ Wall time: 1h 48min 57s
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[48]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[46]:</div>
 
 
 
@@ -16808,7 +16643,7 @@ Wall time: 1h 48min 57s
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[49]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[47]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;test.csv&#39;</span><span class="p">)</span>
@@ -16828,7 +16663,7 @@ Wall time: 1h 48min 57s
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[49]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[47]:</div>
 
 
 
@@ -16898,7 +16733,7 @@ Wall time: 1h 48min 57s
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[50]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[48]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Count of 1 per label: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">df_test</span><span class="p">[</span><span class="n">cols_label</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> 
@@ -16950,7 +16785,7 @@ dtype: int64
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[51]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[49]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_test</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -16969,7 +16804,7 @@ dtype: int64
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[51]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[49]:</div>
 
 
 
@@ -16987,7 +16822,7 @@ dtype: int64
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[52]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[50]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_test</span><span class="p">[</span><span class="n">col_ohe</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_test</span><span class="p">[</span><span class="n">cols_label</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -17007,7 +16842,7 @@ dtype: int64
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[52]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[50]:</div>
 
 
 
@@ -17080,7 +16915,7 @@ dtype: int64
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[53]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[51]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Gathering input data</span>
@@ -17101,7 +16936,7 @@ dtype: int64
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[59]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[52]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
@@ -17132,7 +16967,8 @@ dtype: int64
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>/usr/local/lib/python3.6/dist-packages/transformers/tokenization_utils_base.py:2142: FutureWarning: The `pad_to_max_length` argument is deprecated and will be removed in a future version, use `padding=True` or `padding=&#39;longest&#39;` to pad to the longest sequence in the batch, or use `padding=&#39;max_length&#39;` to pad to a max length. In this case, you can give a specific length with `max_length` (e.g. `max_length=45`) or leave max_length to None to pad to the maximal input size of the model (e.g. 512 for Bert).
+<pre>Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#39;longest_first&#39; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+/usr/local/lib/python3.6/dist-packages/transformers/tokenization_utils_base.py:2142: FutureWarning: The `pad_to_max_length` argument is deprecated and will be removed in a future version, use `padding=True` or `padding=&#39;longest&#39;` to pad to the longest sequence in the batch, or use `padding=&#39;max_length&#39;` to pad to a max length. In this case, you can give a specific length with `max_length` (e.g. `max_length=45`) or leave max_length to None to pad to the maximal input size of the model (e.g. 512 for Bert).
   FutureWarning,
 </pre>
 </div>
@@ -17145,8 +16981,8 @@ dtype: int64
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>CPU times: user 12.9 s, sys: 249 ms, total: 13.1 s
-Wall time: 7.33 s
+<pre>CPU times: user 11.4 s, sys: 50.6 ms, total: 11.5 s
+Wall time: 3.18 s
 </pre>
 </div>
 </div>
@@ -17163,7 +16999,7 @@ Wall time: 7.33 s
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[60]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[53]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Make tensors out of data</span>
@@ -17186,7 +17022,7 @@ Wall time: 7.33 s
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[61]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[54]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Create test dataloader</span>
@@ -17213,7 +17049,7 @@ Wall time: 7.33 s
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[62]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[55]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%time</span>
@@ -17272,8 +17108,8 @@ Wall time: 7.33 s
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>CPU times: user 1min 53s, sys: 1min 25s, total: 3min 19s
-Wall time: 3min 19s
+<pre>CPU times: user 58.9 s, sys: 30.6 s, total: 1min 29s
+Wall time: 1min 29s
 </pre>
 </div>
 </div>
@@ -17282,10 +17118,10 @@ Wall time: 3min 19s
 
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[56]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;pred_lables&#39;</span><span class="p">,</span> <span class="n">pred_labels</span><span class="p">[:</span><span class="mi">2</span><span class="p">])</span>
@@ -17298,6 +17134,31 @@ Wall time: 3min 19s
 </div>
 </div>
 
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>pred_lables [array([2.11265427e-03, 9.95524388e-05, 7.45381229e-04, 1.11659254e-04,
+       6.03488996e-04, 2.03356976e-04], dtype=float32), array([0.00150312, 0.00014245, 0.00088974, 0.00013881, 0.00066261,
+       0.00023769], dtype=float32)]
+true_lables [array([0, 0, 0, 0, 0, 0]), array([0, 0, 0, 0, 0, 0])]
+true_bools [array([False, False, False, False, False, False]), array([False, False, False, False, False, False])]
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
@@ -17306,7 +17167,7 @@ Wall time: 3min 19s
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[63]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[57]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">true_bools</span><span class="p">),</span> <span class="n">df_test</span><span class="o">.</span><span class="n">shape</span>
@@ -17325,7 +17186,7 @@ Wall time: 3min 19s
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[63]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[57]:</div>
 
 
 
@@ -17343,7 +17204,7 @@ Wall time: 3min 19s
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[64]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[58]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">pred_bools</span> <span class="o">=</span> <span class="p">[</span><span class="n">pl</span><span class="o">&gt;</span><span class="mf">0.50</span> <span class="k">for</span> <span class="n">pl</span> <span class="ow">in</span> <span class="n">pred_labels</span><span class="p">]</span>
@@ -17357,7 +17218,7 @@ Wall time: 3min 19s
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[65]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[59]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">f1</span><span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">true_bools</span><span class="p">,</span> <span class="n">pred_bools</span><span class="p">,</span><span class="n">average</span><span class="o">=</span><span class="s1">&#39;micro&#39;</span><span class="p">)</span>
@@ -17384,8 +17245,8 @@ Wall time: 3min 19s
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>F1-score (micro)  : 0.7214
-Accuracy (overall): 0.9178
+<pre>F1-score (micro)  : 0.7005
+Accuracy (overall): 0.9185
 </pre>
 </div>
 </div>
@@ -17402,7 +17263,7 @@ Accuracy (overall): 0.9178
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[66]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[60]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">multilabel_confusion_matrix</span>
@@ -17424,29 +17285,29 @@ Accuracy (overall): 0.9178
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[66]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[60]:</div>
 
 
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>array([[[28487,   336],
-        [  959,  2133]],
+<pre>array([[[28619,   204],
+        [ 1115,  1977]],
 
-       [[31574,    28],
-        [  268,    45]],
+       [[31599,     3],
+        [  306,     7]],
 
-       [[29981,   267],
-        [  376,  1291]],
+       [[30068,   180],
+        [  483,  1184]],
 
        [[31816,     0],
         [   99,     0]],
 
-       [[29904,   426],
-        [  494,  1091]],
+       [[29977,   353],
+        [  568,  1017]],
 
-       [[31646,     0],
-        [  269,     0]]])</pre>
+       [[31642,     4],
+        [  266,     3]]])</pre>
 </div>
 
 </div>
@@ -17463,7 +17324,7 @@ Accuracy (overall): 0.9178
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[67]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[61]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">clf_report</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">true_bools</span><span class="p">,</span><span class="n">pred_bools</span><span class="p">,</span>
@@ -17491,17 +17352,17 @@ Accuracy (overall): 0.9178
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>               precision    recall  f1-score   support
 
-        toxic       0.86      0.69      0.77      3092
- severe_toxic       0.62      0.14      0.23       313
-      obscene       0.83      0.77      0.80      1667
+        toxic       0.91      0.64      0.75      3092
+ severe_toxic       0.70      0.02      0.04       313
+      obscene       0.87      0.71      0.78      1667
        threat       0.00      0.00      0.00        99
-       insult       0.72      0.69      0.70      1585
-identity_hate       0.00      0.00      0.00       269
+       insult       0.74      0.64      0.69      1585
+identity_hate       0.43      0.01      0.02       269
 
-    micro avg       0.81      0.65      0.72      7025
-    macro avg       0.50      0.38      0.42      7025
- weighted avg       0.77      0.65      0.70      7025
-  samples avg       0.06      0.06      0.06      7025
+    micro avg       0.85      0.60      0.70      7025
+    macro avg       0.61      0.34      0.38      7025
+ weighted avg       0.82      0.60      0.67      7025
+  samples avg       0.06      0.05      0.05      7025
 
 </pre>
 </div>
@@ -17536,7 +17397,7 @@ identity_hate       0.00      0.00      0.00       269
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[82]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[62]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">get_df_coo</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span><span class="n">y_pred</span><span class="p">,</span><span class="n">column_names</span><span class="p">):</span>
@@ -17561,7 +17422,7 @@ identity_hate       0.00      0.00      0.00       269
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[83]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[63]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">highlight_diagf</span><span class="p">(</span><span class="n">dfx</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;khaki&quot;</span><span class="p">):</span>
@@ -17582,7 +17443,7 @@ identity_hate       0.00      0.00      0.00       269
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[90]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[64]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_coo</span> <span class="o">=</span> <span class="n">get_df_coo</span><span class="p">(</span><span class="n">true_bools</span><span class="p">,</span><span class="n">pred_bools</span><span class="p">,</span><span class="n">column_names</span><span class="o">=</span><span class="n">cols_label</span><span class="p">)</span>
@@ -17602,84 +17463,84 @@ identity_hate       0.00      0.00      0.00       269
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[90]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[64]:</div>
 
 
 
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
 <style  type="text/css" >
-#T_15f1a380_374c_11eb_af76_0242ac1c0002row0_col0,#T_15f1a380_374c_11eb_af76_0242ac1c0002row1_col1,#T_15f1a380_374c_11eb_af76_0242ac1c0002row2_col2,#T_15f1a380_374c_11eb_af76_0242ac1c0002row3_col3,#T_15f1a380_374c_11eb_af76_0242ac1c0002row4_col4,#T_15f1a380_374c_11eb_af76_0242ac1c0002row5_col5,#T_15f1a380_374c_11eb_af76_0242ac1c0002row6_col6{
+#T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row0_col0,#T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row1_col1,#T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row2_col2,#T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row3_col3,#T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row4_col4,#T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row5_col5,#T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row6_col6{
             background-color:  khaki;
-        }</style><table id="T_15f1a380_374c_11eb_af76_0242ac1c0002" ><thead>    <tr>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >toxic</th>        <th class="col_heading level0 col1" >severe_toxic</th>        <th class="col_heading level0 col2" >obscene</th>        <th class="col_heading level0 col3" >threat</th>        <th class="col_heading level0 col4" >insult</th>        <th class="col_heading level0 col5" >identity_hate</th>        <th class="col_heading level0 col6" >Total</th>    </tr></thead><tbody>
+        }</style><table id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002" ><thead>    <tr>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >toxic</th>        <th class="col_heading level0 col1" >severe_toxic</th>        <th class="col_heading level0 col2" >obscene</th>        <th class="col_heading level0 col3" >threat</th>        <th class="col_heading level0 col4" >insult</th>        <th class="col_heading level0 col5" >identity_hate</th>        <th class="col_heading level0 col6" >Total</th>    </tr></thead><tbody>
                 <tr>
-                        <th id="T_15f1a380_374c_11eb_af76_0242ac1c0002level0_row0" class="row_heading level0 row0" >toxic</th>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row0_col0" class="data row0 col0" >2149</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row0_col1" class="data row0 col1" >165</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row0_col2" class="data row0 col2" >1514</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row0_col3" class="data row0 col3" >0</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row0_col4" class="data row0 col4" >1485</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row0_col5" class="data row0 col5" >0</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row0_col6" class="data row0 col6" >5313</td>
+                        <th id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002level0_row0" class="row_heading level0 row0" >toxic</th>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row0_col0" class="data row0 col0" >1977</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row0_col1" class="data row0 col1" >10</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row0_col2" class="data row0 col2" >1313</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row0_col3" class="data row0 col3" >0</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row0_col4" class="data row0 col4" >1335</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row0_col5" class="data row0 col5" >7</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row0_col6" class="data row0 col6" >4642</td>
             </tr>
             <tr>
-                        <th id="T_15f1a380_374c_11eb_af76_0242ac1c0002level0_row1" class="row_heading level0 row1" >severe_toxic</th>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row1_col0" class="data row1 col0" >311</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row1_col1" class="data row1 col1" >90</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row1_col2" class="data row1 col2" >303</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row1_col3" class="data row1 col3" >0</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row1_col4" class="data row1 col4" >305</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row1_col5" class="data row1 col5" >0</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row1_col6" class="data row1 col6" >1009</td>
+                        <th id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002level0_row1" class="row_heading level0 row1" >severe_toxic</th>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row1_col0" class="data row1 col0" >309</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row1_col1" class="data row1 col1" >7</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row1_col2" class="data row1 col2" >288</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row1_col3" class="data row1 col3" >0</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row1_col4" class="data row1 col4" >297</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row1_col5" class="data row1 col5" >1</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row1_col6" class="data row1 col6" >902</td>
             </tr>
             <tr>
-                        <th id="T_15f1a380_374c_11eb_af76_0242ac1c0002level0_row2" class="row_heading level0 row2" >obscene</th>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row2_col0" class="data row2 col0" >1491</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row2_col1" class="data row2 col1" >165</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row2_col2" class="data row2 col2" >1294</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row2_col3" class="data row2 col3" >0</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row2_col4" class="data row2 col4" >1203</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row2_col5" class="data row2 col5" >0</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row2_col6" class="data row2 col6" >4153</td>
+                        <th id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002level0_row2" class="row_heading level0 row2" >obscene</th>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row2_col0" class="data row2 col0" >1457</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row2_col1" class="data row2 col1" >10</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row2_col2" class="data row2 col2" >1184</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row2_col3" class="data row2 col3" >0</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row2_col4" class="data row2 col4" >1163</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row2_col5" class="data row2 col5" >1</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row2_col6" class="data row2 col6" >3815</td>
             </tr>
             <tr>
-                        <th id="T_15f1a380_374c_11eb_af76_0242ac1c0002level0_row3" class="row_heading level0 row3" >threat</th>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row3_col0" class="data row3 col0" >79</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row3_col1" class="data row3 col1" >10</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row3_col2" class="data row3 col2" >62</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row3_col3" class="data row3 col3" >0</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row3_col4" class="data row3 col4" >67</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row3_col5" class="data row3 col5" >0</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row3_col6" class="data row3 col6" >218</td>
+                        <th id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002level0_row3" class="row_heading level0 row3" >threat</th>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row3_col0" class="data row3 col0" >76</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row3_col1" class="data row3 col1" >0</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row3_col2" class="data row3 col2" >51</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row3_col3" class="data row3 col3" >0</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row3_col4" class="data row3 col4" >58</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row3_col5" class="data row3 col5" >0</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row3_col6" class="data row3 col6" >185</td>
             </tr>
             <tr>
-                        <th id="T_15f1a380_374c_11eb_af76_0242ac1c0002level0_row4" class="row_heading level0 row4" >insult</th>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row4_col0" class="data row4 col0" >1392</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row4_col1" class="data row4 col1" >156</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row4_col2" class="data row4 col2" >1093</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row4_col3" class="data row4 col3" >0</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row4_col4" class="data row4 col4" >1100</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row4_col5" class="data row4 col5" >0</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row4_col6" class="data row4 col6" >3741</td>
+                        <th id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002level0_row4" class="row_heading level0 row4" >insult</th>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row4_col0" class="data row4 col0" >1316</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row4_col1" class="data row4 col1" >10</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row4_col2" class="data row4 col2" >964</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row4_col3" class="data row4 col3" >0</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row4_col4" class="data row4 col4" >1017</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row4_col5" class="data row4 col5" >0</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row4_col6" class="data row4 col6" >3307</td>
             </tr>
             <tr>
-                        <th id="T_15f1a380_374c_11eb_af76_0242ac1c0002level0_row5" class="row_heading level0 row5" >identity_hate</th>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row5_col0" class="data row5 col0" >225</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row5_col1" class="data row5 col1" >30</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row5_col2" class="data row5 col2" >181</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row5_col3" class="data row5 col3" >0</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row5_col4" class="data row5 col4" >194</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row5_col5" class="data row5 col5" >0</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row5_col6" class="data row5 col6" >630</td>
+                        <th id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002level0_row5" class="row_heading level0 row5" >identity_hate</th>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row5_col0" class="data row5 col0" >215</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row5_col1" class="data row5 col1" >1</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row5_col2" class="data row5 col2" >151</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row5_col3" class="data row5 col3" >0</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row5_col4" class="data row5 col4" >169</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row5_col5" class="data row5 col5" >3</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row5_col6" class="data row5 col6" >539</td>
             </tr>
             <tr>
-                        <th id="T_15f1a380_374c_11eb_af76_0242ac1c0002level0_row6" class="row_heading level0 row6" >Total</th>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row6_col0" class="data row6 col0" >5647</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row6_col1" class="data row6 col1" >616</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row6_col2" class="data row6 col2" >4447</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row6_col3" class="data row6 col3" >0</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row6_col4" class="data row6 col4" >4354</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row6_col5" class="data row6 col5" >0</td>
-                        <td id="T_15f1a380_374c_11eb_af76_0242ac1c0002row6_col6" class="data row6 col6" >15064</td>
+                        <th id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002level0_row6" class="row_heading level0 row6" >Total</th>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row6_col0" class="data row6 col0" >5350</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row6_col1" class="data row6 col1" >38</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row6_col2" class="data row6 col2" >3951</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row6_col3" class="data row6 col3" >0</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row6_col4" class="data row6 col4" >4039</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row6_col5" class="data row6 col5" >12</td>
+                        <td id="T_3a7e29ec_37e9_11eb_888f_0242ac1c0002row6_col6" class="data row6 col6" >13390</td>
             </tr>
     </tbody></table>
 </div>
@@ -17698,7 +17559,7 @@ identity_hate       0.00      0.00      0.00       269
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[71]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[65]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">time_taken</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">time_start_notebook</span>
@@ -17726,7 +17587,7 @@ identity_hate       0.00      0.00      0.00       269
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Time taken to run whole notebook: 2 hr 46 min 14 secs
+<pre>Time taken to run whole notebook: 0 hr 53 min 13 secs
 </pre>
 </div>
 </div>
@@ -17742,10 +17603,6 @@ identity_hate       0.00      0.00      0.00       269
 
 
 
-
-<script type="application/vnd.jupyter.widget-state+json">
-{"d5e6866e5f95450197b06f1aaf53f1e3": {"model_module": "@jupyter-widgets/controls", "model_name": "HBoxModel", "state": {"_view_name": "HBoxView", "_dom_classes": [], "_model_name": "HBoxModel", "_view_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_view_count": null, "_view_module_version": "1.5.0", "box_style": "", "layout": "IPY_MODEL_86835a29893c4355b55acef7a937f5e8", "_model_module": "@jupyter-widgets/controls", "children": ["IPY_MODEL_4c9c57995d114c408d9729dc7c839049", "IPY_MODEL_5c4f856849b441329d77d860b7ba04b1"]}}, "86835a29893c4355b55acef7a937f5e8": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "state": {"_view_name": "LayoutView", "grid_template_rows": null, "right": null, "justify_content": null, "_view_module": "@jupyter-widgets/base", "overflow": null, "_model_module_version": "1.2.0", "_view_count": null, "flex_flow": null, "width": null, "min_width": null, "border": null, "align_items": null, "bottom": null, "_model_module": "@jupyter-widgets/base", "top": null, "grid_column": null, "overflow_y": null, "overflow_x": null, "grid_auto_flow": null, "grid_area": null, "grid_template_columns": null, "flex": null, "_model_name": "LayoutModel", "justify_items": null, "grid_row": null, "max_height": null, "align_content": null, "visibility": null, "align_self": null, "height": null, "min_height": null, "padding": null, "grid_auto_rows": null, "grid_gap": null, "max_width": null, "order": null, "_view_module_version": "1.2.0", "grid_template_areas": null, "object_position": null, "object_fit": null, "grid_auto_columns": null, "margin": null, "display": null, "left": null}}, "4c9c57995d114c408d9729dc7c839049": {"model_module": "@jupyter-widgets/controls", "model_name": "FloatProgressModel", "state": {"_view_name": "ProgressView", "style": "IPY_MODEL_dd63ac56bb154d21bb2153d1d113accc", "_dom_classes": [], "description": "Downloading: 100%", "_model_name": "FloatProgressModel", "bar_style": "success", "max": 231508, "_view_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "value": 231508, "_view_count": null, "_view_module_version": "1.5.0", "orientation": "horizontal", "min": 0, "description_tooltip": null, "_model_module": "@jupyter-widgets/controls", "layout": "IPY_MODEL_483586b565354eaba785f83b346a4db0"}}, "5c4f856849b441329d77d860b7ba04b1": {"model_module": "@jupyter-widgets/controls", "model_name": "HTMLModel", "state": {"_view_name": "HTMLView", "style": "IPY_MODEL_27bf8f19b830485b9ee7e5bee4d218bb", "_dom_classes": [], "description": "", "_model_name": "HTMLModel", "placeholder": "\u200b", "_view_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "value": " 232k/232k [00:24&lt;00:00, 9.39kB/s]", "_view_count": null, "_view_module_version": "1.5.0", "description_tooltip": null, "_model_module": "@jupyter-widgets/controls", "layout": "IPY_MODEL_1b17355f9b8a4ab99b31dc8905283d54"}}, "dd63ac56bb154d21bb2153d1d113accc": {"model_module": "@jupyter-widgets/controls", "model_name": "ProgressStyleModel", "state": {"_view_name": "StyleView", "_model_name": "ProgressStyleModel", "description_width": "initial", "_view_module": "@jupyter-widgets/base", "_model_module_version": "1.5.0", "_view_count": null, "_view_module_version": "1.2.0", "bar_color": null, "_model_module": "@jupyter-widgets/controls"}}, "483586b565354eaba785f83b346a4db0": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "state": {"_view_name": "LayoutView", "grid_template_rows": null, "right": null, "justify_content": null, "_view_module": "@jupyter-widgets/base", "overflow": null, "_model_module_version": "1.2.0", "_view_count": null, "flex_flow": null, "width": null, "min_width": null, "border": null, "align_items": null, "bottom": null, "_model_module": "@jupyter-widgets/base", "top": null, "grid_column": null, "overflow_y": null, "overflow_x": null, "grid_auto_flow": null, "grid_area": null, "grid_template_columns": null, "flex": null, "_model_name": "LayoutModel", "justify_items": null, "grid_row": null, "max_height": null, "align_content": null, "visibility": null, "align_self": null, "height": null, "min_height": null, "padding": null, "grid_auto_rows": null, "grid_gap": null, "max_width": null, "order": null, "_view_module_version": "1.2.0", "grid_template_areas": null, "object_position": null, "object_fit": null, "grid_auto_columns": null, "margin": null, "display": null, "left": null}}, "27bf8f19b830485b9ee7e5bee4d218bb": {"model_module": "@jupyter-widgets/controls", "model_name": "DescriptionStyleModel", "state": {"_view_name": "StyleView", "_model_name": "DescriptionStyleModel", "description_width": "", "_view_module": "@jupyter-widgets/base", "_model_module_version": "1.5.0", "_view_count": null, "_view_module_version": "1.2.0", "_model_module": "@jupyter-widgets/controls"}}, "1b17355f9b8a4ab99b31dc8905283d54": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "state": {"_view_name": "LayoutView", "grid_template_rows": null, "right": null, "justify_content": null, "_view_module": "@jupyter-widgets/base", "overflow": null, "_model_module_version": "1.2.0", "_view_count": null, "flex_flow": null, "width": null, "min_width": null, "border": null, "align_items": null, "bottom": null, "_model_module": "@jupyter-widgets/base", "top": null, "grid_column": null, "overflow_y": null, "overflow_x": null, "grid_auto_flow": null, "grid_area": null, "grid_template_columns": null, "flex": null, "_model_name": "LayoutModel", "justify_items": null, "grid_row": null, "max_height": null, "align_content": null, "visibility": null, "align_self": null, "height": null, "min_height": null, "padding": null, "grid_auto_rows": null, "grid_gap": null, "max_width": null, "order": null, "_view_module_version": "1.2.0", "grid_template_areas": null, "object_position": null, "object_fit": null, "grid_auto_columns": null, "margin": null, "display": null, "left": null}}, "dfdf7377df6f4187b3917e80fdd43f94": {"model_module": "@jupyter-widgets/controls", "model_name": "HBoxModel", "state": {"_view_name": "HBoxView", "_dom_classes": [], "_model_name": "HBoxModel", "_view_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_view_count": null, "_view_module_version": "1.5.0", "box_style": "", "layout": "IPY_MODEL_54455f9377a84fb8b609257224ec7d4a", "_model_module": "@jupyter-widgets/controls", "children": ["IPY_MODEL_a103f84bb04b4c049cf8cd005207eba2", "IPY_MODEL_e90d1fe9edcd4bf5a5369aac1447c750"]}}, "54455f9377a84fb8b609257224ec7d4a": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "state": {"_view_name": "LayoutView", "grid_template_rows": null, "right": null, "justify_content": null, "_view_module": "@jupyter-widgets/base", "overflow": null, "_model_module_version": "1.2.0", "_view_count": null, "flex_flow": null, "width": null, "min_width": null, "border": null, "align_items": null, "bottom": null, "_model_module": "@jupyter-widgets/base", "top": null, "grid_column": null, "overflow_y": null, "overflow_x": null, "grid_auto_flow": null, "grid_area": null, "grid_template_columns": null, "flex": null, "_model_name": "LayoutModel", "justify_items": null, "grid_row": null, "max_height": null, "align_content": null, "visibility": null, "align_self": null, "height": null, "min_height": null, "padding": null, "grid_auto_rows": null, "grid_gap": null, "max_width": null, "order": null, "_view_module_version": "1.2.0", "grid_template_areas": null, "object_position": null, "object_fit": null, "grid_auto_columns": null, "margin": null, "display": null, "left": null}}, "a103f84bb04b4c049cf8cd005207eba2": {"model_module": "@jupyter-widgets/controls", "model_name": "FloatProgressModel", "state": {"_view_name": "ProgressView", "style": "IPY_MODEL_48f7bb363af34d6d8bdadb2ee7375760", "_dom_classes": [], "description": "Downloading: 100%", "_model_name": "FloatProgressModel", "bar_style": "success", "max": 466062, "_view_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "value": 466062, "_view_count": null, "_view_module_version": "1.5.0", "orientation": "horizontal", "min": 0, "description_tooltip": null, "_model_module": "@jupyter-widgets/controls", "layout": "IPY_MODEL_d623af8002d24255b539c1f8748ead8a"}}, "e90d1fe9edcd4bf5a5369aac1447c750": {"model_module": "@jupyter-widgets/controls", "model_name": "HTMLModel", "state": {"_view_name": "HTMLView", "style": "IPY_MODEL_3112718240414ddd8ed94d9b7789c26a", "_dom_classes": [], "description": "", "_model_name": "HTMLModel", "placeholder": "\u200b", "_view_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "value": " 466k/466k [00:24&lt;00:00, 19.0kB/s]", "_view_count": null, "_view_module_version": "1.5.0", "description_tooltip": null, "_model_module": "@jupyter-widgets/controls", "layout": "IPY_MODEL_8806fc27a3804ac1b3d8eb24d5e1559b"}}, "48f7bb363af34d6d8bdadb2ee7375760": {"model_module": "@jupyter-widgets/controls", "model_name": "ProgressStyleModel", "state": {"_view_name": "StyleView", "_model_name": "ProgressStyleModel", "description_width": "initial", "_view_module": "@jupyter-widgets/base", "_model_module_version": "1.5.0", "_view_count": null, "_view_module_version": "1.2.0", "bar_color": null, "_model_module": "@jupyter-widgets/controls"}}, "d623af8002d24255b539c1f8748ead8a": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "state": {"_view_name": "LayoutView", "grid_template_rows": null, "right": null, "justify_content": null, "_view_module": "@jupyter-widgets/base", "overflow": null, "_model_module_version": "1.2.0", "_view_count": null, "flex_flow": null, "width": null, "min_width": null, "border": null, "align_items": null, "bottom": null, "_model_module": "@jupyter-widgets/base", "top": null, "grid_column": null, "overflow_y": null, "overflow_x": null, "grid_auto_flow": null, "grid_area": null, "grid_template_columns": null, "flex": null, "_model_name": "LayoutModel", "justify_items": null, "grid_row": null, "max_height": null, "align_content": null, "visibility": null, "align_self": null, "height": null, "min_height": null, "padding": null, "grid_auto_rows": null, "grid_gap": null, "max_width": null, "order": null, "_view_module_version": "1.2.0", "grid_template_areas": null, "object_position": null, "object_fit": null, "grid_auto_columns": null, "margin": null, "display": null, "left": null}}, "3112718240414ddd8ed94d9b7789c26a": {"model_module": "@jupyter-widgets/controls", "model_name": "DescriptionStyleModel", "state": {"_view_name": "StyleView", "_model_name": "DescriptionStyleModel", "description_width": "", "_view_module": "@jupyter-widgets/base", "_model_module_version": "1.5.0", "_view_count": null, "_view_module_version": "1.2.0", "_model_module": "@jupyter-widgets/controls"}}, "8806fc27a3804ac1b3d8eb24d5e1559b": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "state": {"_view_name": "LayoutView", "grid_template_rows": null, "right": null, "justify_content": null, "_view_module": "@jupyter-widgets/base", "overflow": null, "_model_module_version": "1.2.0", "_view_count": null, "flex_flow": null, "width": null, "min_width": null, "border": null, "align_items": null, "bottom": null, "_model_module": "@jupyter-widgets/base", "top": null, "grid_column": null, "overflow_y": null, "overflow_x": null, "grid_auto_flow": null, "grid_area": null, "grid_template_columns": null, "flex": null, "_model_name": "LayoutModel", "justify_items": null, "grid_row": null, "max_height": null, "align_content": null, "visibility": null, "align_self": null, "height": null, "min_height": null, "padding": null, "grid_auto_rows": null, "grid_gap": null, "max_width": null, "order": null, "_view_module_version": "1.2.0", "grid_template_areas": null, "object_position": null, "object_fit": null, "grid_auto_columns": null, "margin": null, "display": null, "left": null}}, "33f348856f27461bbdfc40c94d08164c": {"model_module": "@jupyter-widgets/controls", "model_name": "HBoxModel", "state": {"_view_name": "HBoxView", "_dom_classes": [], "_model_name": "HBoxModel", "_view_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_view_count": null, "_view_module_version": "1.5.0", "box_style": "", "layout": "IPY_MODEL_495ab9bbded547c2a4c8b3c78939a533", "_model_module": "@jupyter-widgets/controls", "children": ["IPY_MODEL_fdf17c091ec04f69b0a6417dde7646a7", "IPY_MODEL_8532ce5503174dd58fed1a77c2006461"]}}, "495ab9bbded547c2a4c8b3c78939a533": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "state": {"_view_name": "LayoutView", "grid_template_rows": null, "right": null, "justify_content": null, "_view_module": "@jupyter-widgets/base", "overflow": null, "_model_module_version": "1.2.0", "_view_count": null, "flex_flow": null, "width": null, "min_width": null, "border": null, "align_items": null, "bottom": null, "_model_module": "@jupyter-widgets/base", "top": null, "grid_column": null, "overflow_y": null, "overflow_x": null, "grid_auto_flow": null, "grid_area": null, "grid_template_columns": null, "flex": null, "_model_name": "LayoutModel", "justify_items": null, "grid_row": null, "max_height": null, "align_content": null, "visibility": null, "align_self": null, "height": null, "min_height": null, "padding": null, "grid_auto_rows": null, "grid_gap": null, "max_width": null, "order": null, "_view_module_version": "1.2.0", "grid_template_areas": null, "object_position": null, "object_fit": null, "grid_auto_columns": null, "margin": null, "display": null, "left": null}}, "fdf17c091ec04f69b0a6417dde7646a7": {"model_module": "@jupyter-widgets/controls", "model_name": "FloatProgressModel", "state": {"_view_name": "ProgressView", "style": "IPY_MODEL_b722390e8a424c0db154d138cbd16117", "_dom_classes": [], "description": "Downloading: 100%", "_model_name": "FloatProgressModel", "bar_style": "success", "max": 442, "_view_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "value": 442, "_view_count": null, "_view_module_version": "1.5.0", "orientation": "horizontal", "min": 0, "description_tooltip": null, "_model_module": "@jupyter-widgets/controls", "layout": "IPY_MODEL_4ef75393eb1d40bdb931554b29ef9947"}}, "8532ce5503174dd58fed1a77c2006461": {"model_module": "@jupyter-widgets/controls", "model_name": "HTMLModel", "state": {"_view_name": "HTMLView", "style": "IPY_MODEL_9602a8cfafe24b0e81e918a7a0c080ba", "_dom_classes": [], "description": "", "_model_name": "HTMLModel", "placeholder": "\u200b", "_view_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "value": " 442/442 [00:17&lt;00:00, 25.4B/s]", "_view_count": null, "_view_module_version": "1.5.0", "description_tooltip": null, "_model_module": "@jupyter-widgets/controls", "layout": "IPY_MODEL_54d62cc037bf4f8aa53c13b59527a5e6"}}, "b722390e8a424c0db154d138cbd16117": {"model_module": "@jupyter-widgets/controls", "model_name": "ProgressStyleModel", "state": {"_view_name": "StyleView", "_model_name": "ProgressStyleModel", "description_width": "initial", "_view_module": "@jupyter-widgets/base", "_model_module_version": "1.5.0", "_view_count": null, "_view_module_version": "1.2.0", "bar_color": null, "_model_module": "@jupyter-widgets/controls"}}, "4ef75393eb1d40bdb931554b29ef9947": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "state": {"_view_name": "LayoutView", "grid_template_rows": null, "right": null, "justify_content": null, "_view_module": "@jupyter-widgets/base", "overflow": null, "_model_module_version": "1.2.0", "_view_count": null, "flex_flow": null, "width": null, "min_width": null, "border": null, "align_items": null, "bottom": null, "_model_module": "@jupyter-widgets/base", "top": null, "grid_column": null, "overflow_y": null, "overflow_x": null, "grid_auto_flow": null, "grid_area": null, "grid_template_columns": null, "flex": null, "_model_name": "LayoutModel", "justify_items": null, "grid_row": null, "max_height": null, "align_content": null, "visibility": null, "align_self": null, "height": null, "min_height": null, "padding": null, "grid_auto_rows": null, "grid_gap": null, "max_width": null, "order": null, "_view_module_version": "1.2.0", "grid_template_areas": null, "object_position": null, "object_fit": null, "grid_auto_columns": null, "margin": null, "display": null, "left": null}}, "9602a8cfafe24b0e81e918a7a0c080ba": {"model_module": "@jupyter-widgets/controls", "model_name": "DescriptionStyleModel", "state": {"_view_name": "StyleView", "_model_name": "DescriptionStyleModel", "description_width": "", "_view_module": "@jupyter-widgets/base", "_model_module_version": "1.5.0", "_view_count": null, "_view_module_version": "1.2.0", "_model_module": "@jupyter-widgets/controls"}}, "54d62cc037bf4f8aa53c13b59527a5e6": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "state": {"_view_name": "LayoutView", "grid_template_rows": null, "right": null, "justify_content": null, "_view_module": "@jupyter-widgets/base", "overflow": null, "_model_module_version": "1.2.0", "_view_count": null, "flex_flow": null, "width": null, "min_width": null, "border": null, "align_items": null, "bottom": null, "_model_module": "@jupyter-widgets/base", "top": null, "grid_column": null, "overflow_y": null, "overflow_x": null, "grid_auto_flow": null, "grid_area": null, "grid_template_columns": null, "flex": null, "_model_name": "LayoutModel", "justify_items": null, "grid_row": null, "max_height": null, "align_content": null, "visibility": null, "align_self": null, "height": null, "min_height": null, "padding": null, "grid_auto_rows": null, "grid_gap": null, "max_width": null, "order": null, "_view_module_version": "1.2.0", "grid_template_areas": null, "object_position": null, "object_fit": null, "grid_auto_columns": null, "margin": null, "display": null, "left": null}}, "0da0b1082b0f4edebc53f28eca292d64": {"model_module": "@jupyter-widgets/controls", "model_name": "HBoxModel", "state": {"_view_name": "HBoxView", "_dom_classes": [], "_model_name": "HBoxModel", "_view_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "_view_count": null, "_view_module_version": "1.5.0", "box_style": "", "layout": "IPY_MODEL_bd2b0d5d4f9c417c95b2e0f24fc30a57", "_model_module": "@jupyter-widgets/controls", "children": ["IPY_MODEL_ca2d782260ad4185a7b8b8fef76c600b", "IPY_MODEL_94f50f8abb90472393d295a6e7dcb3ef"]}}, "bd2b0d5d4f9c417c95b2e0f24fc30a57": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "state": {"_view_name": "LayoutView", "grid_template_rows": null, "right": null, "justify_content": null, "_view_module": "@jupyter-widgets/base", "overflow": null, "_model_module_version": "1.2.0", "_view_count": null, "flex_flow": null, "width": null, "min_width": null, "border": null, "align_items": null, "bottom": null, "_model_module": "@jupyter-widgets/base", "top": null, "grid_column": null, "overflow_y": null, "overflow_x": null, "grid_auto_flow": null, "grid_area": null, "grid_template_columns": null, "flex": null, "_model_name": "LayoutModel", "justify_items": null, "grid_row": null, "max_height": null, "align_content": null, "visibility": null, "align_self": null, "height": null, "min_height": null, "padding": null, "grid_auto_rows": null, "grid_gap": null, "max_width": null, "order": null, "_view_module_version": "1.2.0", "grid_template_areas": null, "object_position": null, "object_fit": null, "grid_auto_columns": null, "margin": null, "display": null, "left": null}}, "ca2d782260ad4185a7b8b8fef76c600b": {"model_module": "@jupyter-widgets/controls", "model_name": "FloatProgressModel", "state": {"_view_name": "ProgressView", "style": "IPY_MODEL_78c027b9f744498a8624b126b121ea67", "_dom_classes": [], "description": "Downloading: 100%", "_model_name": "FloatProgressModel", "bar_style": "success", "max": 267967963, "_view_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "value": 267967963, "_view_count": null, "_view_module_version": "1.5.0", "orientation": "horizontal", "min": 0, "description_tooltip": null, "_model_module": "@jupyter-widgets/controls", "layout": "IPY_MODEL_0b08700f7b0a47a48dae8a5b783095b9"}}, "94f50f8abb90472393d295a6e7dcb3ef": {"model_module": "@jupyter-widgets/controls", "model_name": "HTMLModel", "state": {"_view_name": "HTMLView", "style": "IPY_MODEL_406e9b54820149c19eb9b64cec534db2", "_dom_classes": [], "description": "", "_model_name": "HTMLModel", "placeholder": "\u200b", "_view_module": "@jupyter-widgets/controls", "_model_module_version": "1.5.0", "value": " 268M/268M [00:03&lt;00:00, 67.1MB/s]", "_view_count": null, "_view_module_version": "1.5.0", "description_tooltip": null, "_model_module": "@jupyter-widgets/controls", "layout": "IPY_MODEL_52eaff3364444ffa83c25f3c4536d756"}}, "78c027b9f744498a8624b126b121ea67": {"model_module": "@jupyter-widgets/controls", "model_name": "ProgressStyleModel", "state": {"_view_name": "StyleView", "_model_name": "ProgressStyleModel", "description_width": "initial", "_view_module": "@jupyter-widgets/base", "_model_module_version": "1.5.0", "_view_count": null, "_view_module_version": "1.2.0", "bar_color": null, "_model_module": "@jupyter-widgets/controls"}}, "0b08700f7b0a47a48dae8a5b783095b9": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "state": {"_view_name": "LayoutView", "grid_template_rows": null, "right": null, "justify_content": null, "_view_module": "@jupyter-widgets/base", "overflow": null, "_model_module_version": "1.2.0", "_view_count": null, "flex_flow": null, "width": null, "min_width": null, "border": null, "align_items": null, "bottom": null, "_model_module": "@jupyter-widgets/base", "top": null, "grid_column": null, "overflow_y": null, "overflow_x": null, "grid_auto_flow": null, "grid_area": null, "grid_template_columns": null, "flex": null, "_model_name": "LayoutModel", "justify_items": null, "grid_row": null, "max_height": null, "align_content": null, "visibility": null, "align_self": null, "height": null, "min_height": null, "padding": null, "grid_auto_rows": null, "grid_gap": null, "max_width": null, "order": null, "_view_module_version": "1.2.0", "grid_template_areas": null, "object_position": null, "object_fit": null, "grid_auto_columns": null, "margin": null, "display": null, "left": null}}, "406e9b54820149c19eb9b64cec534db2": {"model_module": "@jupyter-widgets/controls", "model_name": "DescriptionStyleModel", "state": {"_view_name": "StyleView", "_model_name": "DescriptionStyleModel", "description_width": "", "_view_module": "@jupyter-widgets/base", "_model_module_version": "1.5.0", "_view_count": null, "_view_module_version": "1.2.0", "_model_module": "@jupyter-widgets/controls"}}, "52eaff3364444ffa83c25f3c4536d756": {"model_module": "@jupyter-widgets/base", "model_name": "LayoutModel", "state": {"_view_name": "LayoutView", "grid_template_rows": null, "right": null, "justify_content": null, "_view_module": "@jupyter-widgets/base", "overflow": null, "_model_module_version": "1.2.0", "_view_count": null, "flex_flow": null, "width": null, "min_width": null, "border": null, "align_items": null, "bottom": null, "_model_module": "@jupyter-widgets/base", "top": null, "grid_column": null, "overflow_y": null, "overflow_x": null, "grid_auto_flow": null, "grid_area": null, "grid_template_columns": null, "flex": null, "_model_name": "LayoutModel", "justify_items": null, "grid_row": null, "max_height": null, "align_content": null, "visibility": null, "align_self": null, "height": null, "min_height": null, "padding": null, "grid_auto_rows": null, "grid_gap": null, "max_width": null, "order": null, "_view_module_version": "1.2.0", "grid_template_areas": null, "object_position": null, "object_fit": null, "grid_auto_columns": null, "margin": null, "display": null, "left": null}}}
-</script>
 
 
 </html>
