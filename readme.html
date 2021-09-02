@@ -1,3 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
 <h1 id="table-of-contents">Table of Contents</h1>
 <ul>
 <li><a href="#business-problem">Business Problem</a></li>
@@ -6,45 +373,59 @@
 <li><a href="#modelling-binary-classification-toxic-or-not">Modelling (Binary Classification toxic or not)</a></li>
 <li><a href="#model-evaluation-for-binary-classification">Model Evaluation for Binary Classification</a></li>
 <li><a href="#model-explanation-using-lime-for-binary-classification">Model Explanation using lime for Binary Classification</a></li>
-<li><a href="#deep-learning-modelling-multilabel-classification-keras--fasttext">Deep Learning Modelling (Multilabel Classification): Keras Fasttext</a></li>
-<li><a href="#deep-learning-modelling-multilabel-classification-bert">Deep Learning Modelling (Multilabel Classification): BERT</a></li>
-<li><a href="#deep-learning-modelling-multilabel-classification-xlnet">Deep Learning Modelling (Multilabel Classification): XLNET</a></li>
-<li><a href="#compare-f1-scores-for-deep-learning-methods">Compare f1-scores for deep learning methods</a></li>
+<li><a href="#deep-learning-modelling-multiclass-classification-keras--fasttext">Deep Learning Modelling (Multiclass Classification): Keras   Fasttext</a></li>
+<li><a href="#deep-learning-modelling-multiclass-classification-bert">Deep Learning Modelling (Multiclass Classification): BERT</a></li>
+<li><a href="#deep-learning-modelling-multiclass-classification-xlnet">Deep Learning Modelling (Multiclass Classification): XLNET</a></li>
+<li><a href="#compare-f1-scores-for-deep-learning-methods">Compare F1-scores for deep learning methods</a></li>
 </ul>
 <h1 id="business-problem">Business Problem</h1>
-<p>We are given large number of Wikipedia comments which have been labeled by human raters for toxic behavior. The types of toxicity are: <code>toxic</code>, <code>severe_toxic</code>, <code>obscene</code>, <code>threat</code>, <code>insult</code>, <code>identity_hate</code>. We should create a model which predicts a probability of each type of toxicity for each comment.</p>
+<p>We are given large number of Wikipedia comments which have been labeled by human raters for toxic behavior.
+The types of toxicity are: <code>toxic</code>, <code>severe_toxic</code>, <code>obscene</code>, <code>threat</code>, <code>insult</code>, <code>identity_hate</code>.
+We should create a model which predicts a probability of each type of toxicity for each comment.</p>
 <h1 id="text-data-processing">Text Data Processing</h1>
 <p>For the text data series we can create some features based on the given text. Some feature engineerings are:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Number: letters, capitals, punctuations, symbols, words, sentences, unique words, smileys, qn marks, excl marks</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Mean: capitals, word legth</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Ratio: num of words <span class="op">/</span> num of unique</span></code></pre></div>
+<pre class="hljs"><code><div>Number: letters, capitals, punctuations, symbols, words, sentences, unique words, smileys, qn marks, excl marks
+Mean: capitals, word length
+Ratio: num of words / num of unique
+</div></code></pre>
 <p>Basic steps of text processing:</p>
-<pre><code>Remove: digits, punctuations
+<pre class="hljs"><code><div>Remove: digits, punctuations
 Conversion: lowercase
 Split: split sentences into words
 Stopwords: remove stopwords
-Lemmatize: convert word to its base form</code></pre>
+Lemmatize: convert word to its base form
+</div></code></pre>
 <h1 id="visualization">Visualization</h1>
-<p>After doing the preprocessing of the data, we can get more insights into data using some visualization. <img src="images/class_distribution.png" /> <img src="images/insult_freq_dist.png" /> <img src="images/toxic_wordcloud.png" /> <img src="images/toxic_tf_idf.png" /></p>
+<p>After doing the preprocessing of the data, we can get more insights into data using some visualization.
+<img src="images/class_distribution.png" alt="">
+<img src="images/insult_freq_dist.png" alt="">
+<img src="images/toxic_wordcloud.png" alt="">
+<img src="images/toxic_tf_idf.png" alt=""></p>
 <h1 id="modelling-binary-classification-toxic-or-not">Modelling (Binary Classification toxic or not)</h1>
 <p>For the text classification I used Logistic Regression with following pipelines:</p>
-<pre><code>preprocess the data and add features
+<pre class="hljs"><code><div>preprocess the data and add features
 lemmatization
 tf-idf for words
 tf-idf for characters
-then, logistic regression with grid search parameters</code></pre>
+then, logistic regression with grid search parameters
+</div></code></pre>
 <p>After searching for hyper parameters I got following results:</p>
-<pre><code>Accuracy :  0.9516096780643871
+<pre class="hljs"><code><div>Accuracy :  0.9516096780643871
 Precision:  0.9154411764705882
 Recall   :  0.532051282051282
-F1-score :  0.672972972972973</code></pre>
+F1-score :  0.672972972972973
+</div></code></pre>
 <h1 id="model-evaluation-for-binary-classification">Model Evaluation for Binary Classification</h1>
-<p>The ROC AUC curve is given below <img src="images/roc_auc.png" /></p>
+<p>The ROC AUC curve is given below
+<img src="images/roc_auc.png" alt=""></p>
 <h1 id="model-explanation-using-lime-for-binary-classification">Model Explanation using lime for Binary Classification</h1>
-<p>For the model explanation we can use lime module. For example for one sample here the model predicts the comment to be non-toxic. Why the model thinks this particular row is classified as non-toxic? We can look the image below: <img src="images/lime_example.png" /></p>
-<h1 id="deep-learning-modelling-multilabel-classification-keras-fasttext">Deep Learning Modelling (Multilabel Classification): Keras + Fasttext</h1>
-<p>Horizontal quantities are true labels and vertical quantities are predicted labels. For example first row second quantitiy is true “toxic” but predicted as “severe_toxic”. <img src="images/toxic_coo_fasttext.png" /></p>
-<pre><code>              precision    recall  f1-score   support
+<p>For the model explanation we can use lime module. For example for one sample here the model predicts the comment to
+be non-toxic. Why the model thinks this particular row is classified as non-toxic? We can look the image below:
+<img src="images/lime_example.png" alt=""></p>
+<h1 id="deep-learning-modelling-multiclass-classification-keras--fasttext">Deep Learning Modelling (Multiclass Classification): Keras + Fasttext</h1>
+<p>Horizontal quantities are true labels and vertical quantities are predicted labels. For example first row second quantity is true <code>toxic</code> but predicted as <code>severe_toxic</code>.
+<img src="images/toxic_coo_fasttext.png" alt=""></p>
+<pre class="hljs"><code><div>              precision    recall  f1-score   support
 
            0       0.11      0.98      0.19      3092
            1       0.00      0.00      0.00       313
@@ -56,10 +437,11 @@ F1-score :  0.672972972972973</code></pre>
    micro avg       0.10      0.44      0.16      7025
    macro avg       0.04      0.17      0.04      7025
 weighted avg       0.05      0.44      0.09      7025
- samples avg       0.10      0.06      0.07      7025</code></pre>
-<h1 id="deep-learning-modelling-multilabel-classification-bert">Deep Learning Modelling (Multilabel Classification): BERT</h1>
-<p><img src="images/toxic_coo_bert.png" /></p>
-<pre><code>Best Threshold     : 0.41000000000000003
+ samples avg       0.10      0.06      0.07      7025
+</div></code></pre>
+<h1 id="deep-learning-modelling-multiclass-classification-bert">Deep Learning Modelling (Multiclass Classification): BERT</h1>
+<p><img src="images/toxic_coo_bert.png" alt=""></p>
+<pre class="hljs"><code><div>Best Threshold     : 0.41000000000000003
 Test F1 Accuracy   : 0.7806
 Test Flat Accuracy : 0.9234
                precision    recall  f1-score   support
@@ -74,10 +456,11 @@ identity_hate       0.60      0.46      0.52       269
     micro avg       0.77      0.79      0.78      7025
     macro avg       0.66      0.68      0.66      7025
  weighted avg       0.77      0.79      0.78      7025
-  samples avg       0.07      0.07      0.07      7025</code></pre>
-<h1 id="deep-learning-modelling-multilabel-classification-xlnet">Deep Learning Modelling (Multilabel Classification): XLNET</h1>
-<p><img src="images/toxic_coo_xlnet.png" /></p>
-<pre><code>I have used 3 epochs for both bert and xlnet. However bert gives better f1-score despite xlnet takes 3 hours to run and bert takes 1 hour in google colab gpu instance.
+  samples avg       0.07      0.07      0.07      7025
+</div></code></pre>
+<h1 id="deep-learning-modelling-multiclass-classification-xlnet">Deep Learning Modelling (Multiclass Classification): XLNET</h1>
+<p><img src="images/toxic_coo_xlnet.png" alt=""></p>
+<pre class="hljs"><code><div>I have used 3 epochs for both bert and XLNET. However bert gives better f1-score despite XLNET takes 3 hours to run and bert takes 1 hour in google colab GPU instance.
 
 Best Threshold     : 0.51
 Test F1 Accuracy   : 0.7670
@@ -94,77 +477,81 @@ identity_hate       0.64      0.51      0.56       269
     micro avg       0.77      0.77      0.77      7025
     macro avg       0.70      0.57      0.59      7025
  weighted avg       0.76      0.77      0.75      7025
-  samples avg       0.07      0.07      0.07      7025</code></pre>
-<h1 id="compare-f1-scores-for-deep-learning-methods">Compare f1-scores for deep learning methods</h1>
+  samples avg       0.07      0.07      0.07      7025
+</div></code></pre>
+<h1 id="compare-f1-scores-for-deep-learning-methods">Compare F1-scores for deep learning methods</h1>
 <table>
 <thead>
-<tr class="header">
-<th style="text-align: left;">Quantity</th>
-<th style="text-align: left;">Fasttext</th>
-<th style="text-align: left;">BERT</th>
-<th style="text-align: left;">XLNET</th>
+<tr>
+<th style="text-align:left">Quantity</th>
+<th style="text-align:left">Fasttext</th>
+<th style="text-align:left">BERT</th>
+<th style="text-align:left">XLNET</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">toxic</td>
-<td style="text-align: left;">0.19</td>
-<td style="text-align: left;">0.82</td>
-<td style="text-align: left;">0.81</td>
+<tr>
+<td style="text-align:left">toxic</td>
+<td style="text-align:left">0.19</td>
+<td style="text-align:left">0.82</td>
+<td style="text-align:left">0.81</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">severe_toxic</td>
-<td style="text-align: left;">0.00</td>
-<td style="text-align: left;">0.52</td>
-<td style="text-align: left;">0.14</td>
+<tr>
+<td style="text-align:left">severe_toxic</td>
+<td style="text-align:left">0.00</td>
+<td style="text-align:left">0.52</td>
+<td style="text-align:left">0.14</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">obscene</td>
-<td style="text-align: left;">0.02</td>
-<td style="text-align: left;">0.83</td>
-<td style="text-align: left;">0.82</td>
+<tr>
+<td style="text-align:left">obscene</td>
+<td style="text-align:left">0.02</td>
+<td style="text-align:left">0.83</td>
+<td style="text-align:left">0.82</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">threat</td>
-<td style="text-align: left;">0.02</td>
-<td style="text-align: left;">0.52</td>
-<td style="text-align: left;">0.49</td>
+<tr>
+<td style="text-align:left">threat</td>
+<td style="text-align:left">0.02</td>
+<td style="text-align:left">0.52</td>
+<td style="text-align:left">0.49</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">insult</td>
-<td style="text-align: left;">0.00</td>
-<td style="text-align: left;">0.77</td>
-<td style="text-align: left;">0.74</td>
+<tr>
+<td style="text-align:left">insult</td>
+<td style="text-align:left">0.00</td>
+<td style="text-align:left">0.77</td>
+<td style="text-align:left">0.74</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">identity_hate</td>
-<td style="text-align: left;">0.00</td>
-<td style="text-align: left;">0.52</td>
-<td style="text-align: left;">0.56</td>
+<tr>
+<td style="text-align:left">identity_hate</td>
+<td style="text-align:left">0.00</td>
+<td style="text-align:left">0.52</td>
+<td style="text-align:left">0.56</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">micro_avg</td>
-<td style="text-align: left;">0.16</td>
-<td style="text-align: left;">0.78</td>
-<td style="text-align: left;">0.77</td>
+<tr>
+<td style="text-align:left">micro_avg</td>
+<td style="text-align:left">0.16</td>
+<td style="text-align:left">0.78</td>
+<td style="text-align:left">0.77</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">macro_avg</td>
-<td style="text-align: left;">0.04</td>
-<td style="text-align: left;">0.66</td>
-<td style="text-align: left;">0.59</td>
+<tr>
+<td style="text-align:left">macro_avg</td>
+<td style="text-align:left">0.04</td>
+<td style="text-align:left">0.66</td>
+<td style="text-align:left">0.59</td>
 </tr>
-<tr class="odd">
-<td style="text-align: left;">weighted_avg</td>
-<td style="text-align: left;">0.09</td>
-<td style="text-align: left;">0.78</td>
-<td style="text-align: left;">0.75</td>
+<tr>
+<td style="text-align:left">weighted_avg</td>
+<td style="text-align:left">0.09</td>
+<td style="text-align:left">0.78</td>
+<td style="text-align:left">0.75</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">samples_avg</td>
-<td style="text-align: left;">0.07</td>
-<td style="text-align: left;">0.07</td>
-<td style="text-align: left;">0.07</td>
+<tr>
+<td style="text-align:left">samples_avg</td>
+<td style="text-align:left">0.07</td>
+<td style="text-align:left">0.07</td>
+<td style="text-align:left">0.07</td>
 </tr>
 </tbody>
 </table>
+
+</body>
+</html>

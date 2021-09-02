@@ -6,10 +6,10 @@ Table of Contents
    * [Modelling (Binary Classification toxic or not)](#modelling-binary-classification-toxic-or-not)
    * [Model Evaluation for Binary Classification](#model-evaluation-for-binary-classification)
    * [Model Explanation using lime for Binary Classification](#model-explanation-using-lime-for-binary-classification)
-   * [Deep Learning Modelling (Multilabel Classification): Keras   Fasttext](#deep-learning-modelling-multilabel-classification-keras--fasttext)
-   * [Deep Learning Modelling (Multilabel Classification): BERT](#deep-learning-modelling-multilabel-classification-bert)
-   * [Deep Learning Modelling (Multilabel Classification): XLNET](#deep-learning-modelling-multilabel-classification-xlnet)
-   * [Compare f1-scores for deep learning methods](#compare-f1-scores-for-deep-learning-methods)
+   * [Deep Learning Modelling (Multiclass Classification): Keras   Fasttext](#deep-learning-modelling-multiclass-classification-keras--fasttext)
+   * [Deep Learning Modelling (Multiclass Classification): BERT](#deep-learning-modelling-multiclass-classification-bert)
+   * [Deep Learning Modelling (Multiclass Classification): XLNET](#deep-learning-modelling-multiclass-classification-xlnet)
+   * [Compare F1-scores for deep learning methods](#compare-f1-scores-for-deep-learning-methods)
 
 # Business Problem
 We are given large number of Wikipedia comments which have been labeled by human raters for toxic behavior.
@@ -67,7 +67,7 @@ be non-toxic. Why the model thinks this particular row is classified as non-toxi
 ![](images/lime_example.png)
 
 # Deep Learning Modelling (Multiclass Classification): Keras + Fasttext
-Horizontal quantities are true labels and vertical quantities are predicted labels. For example first row second quantitiy is true `toxic` but predicted as `severe_toxic`.
+Horizontal quantities are true labels and vertical quantities are predicted labels. For example first row second quantity is true `toxic` but predicted as `severe_toxic`.
 ![](images/toxic_coo_fasttext.png)
 ```
               precision    recall  f1-score   support
@@ -85,7 +85,7 @@ weighted avg       0.05      0.44      0.09      7025
  samples avg       0.10      0.06      0.07      7025
 ```
 
-# Deep Learning Modelling (Multilabel Classification): BERT
+# Deep Learning Modelling (Multiclass Classification): BERT
 ![](images/toxic_coo_bert.png)
 ```
 Best Threshold     : 0.41000000000000003
@@ -106,10 +106,10 @@ identity_hate       0.60      0.46      0.52       269
   samples avg       0.07      0.07      0.07      7025
 ```
 
-# Deep Learning Modelling (Multilabel Classification): XLNET
+# Deep Learning Modelling (Multiclass Classification): XLNET
 ![](images/toxic_coo_xlnet.png)
 ```
-I have used 3 epochs for both bert and xlnet. However bert gives better f1-score despite xlnet takes 3 hours to run and bert takes 1 hour in google colab gpu instance.
+I have used 3 epochs for both bert and XLNET. However bert gives better f1-score despite XLNET takes 3 hours to run and bert takes 1 hour in google colab GPU instance.
 
 Best Threshold     : 0.51
 Test F1 Accuracy   : 0.7670
@@ -129,7 +129,7 @@ identity_hate       0.64      0.51      0.56       269
   samples avg       0.07      0.07      0.07      7025
 ```
 
-# Compare f1-scores for deep learning methods
+# Compare F1-scores for deep learning methods
 
 | Quantity | Fasttext | BERT | XLNET |
 | :---|:---|:---|:---|
