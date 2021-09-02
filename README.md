@@ -20,7 +20,7 @@ We should create a model which predicts a probability of each type of toxicity f
 For the text data series we can create some features based on the given text. Some feature engineerings are:
 ```python
 Number: letters, capitals, punctuations, symbols, words, sentences, unique words, smileys, qn marks, excl marks
-Mean: capitals, word legth
+Mean: capitals, word length
 Ratio: num of words / num of unique
 ```
 
@@ -66,8 +66,8 @@ For the model explanation we can use lime module. For example for one sample her
 be non-toxic. Why the model thinks this particular row is classified as non-toxic? We can look the image below:
 ![](images/lime_example.png)
 
-# Deep Learning Modelling (Multilabel Classification): Keras + Fasttext
-Horizontal quantities are true labels and vertical quantities are predicted labels. For example first row second quantitiy is true "toxic" but predicted as "severe_toxic".
+# Deep Learning Modelling (Multiclass Classification): Keras + Fasttext
+Horizontal quantities are true labels and vertical quantities are predicted labels. For example first row second quantitiy is true `toxic` but predicted as `severe_toxic`.
 ![](images/toxic_coo_fasttext.png)
 ```
               precision    recall  f1-score   support
